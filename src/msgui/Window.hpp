@@ -1,7 +1,7 @@
 #pragma once
-#include "StaticVector.hpp"
-#include "WidgetBase.hpp"
-#include "primitives/Rectancle.hpp"
+#include "msgui/StaticVector.hpp"
+#include "msgui/WidgetBase.hpp"
+#include "msgui/primitives/Rectancle.hpp"
 
 namespace msgui
 {

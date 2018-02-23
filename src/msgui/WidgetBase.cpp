@@ -1,4 +1,4 @@
-#include "WidgetBase.hpp"
+#include "msgui/WidgetBase.hpp"
 
 namespace msgui
 {

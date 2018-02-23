@@ -1,4 +1,4 @@
-#include "GraphicDriver.hpp"
+#include "msgui/GraphicDriver.hpp"
 
 namespace msgui
 {

@@ -1,6 +1,6 @@
 #include "catch.hpp"
 
-#include "src/WidgetBase.hpp"
+#include "msgui/WidgetBase.hpp"
 
 namespace msgui
 {

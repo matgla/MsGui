@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Area.hpp"
-#include "Gui.hpp"
-#include "primitives/IShape.hpp"
-#include "primitives/Line.hpp"
+#include "msgui/Area.hpp"
+#include "msgui/Gui.hpp"
+#include "msgui/primitives/IShape.hpp"
+#include "msgui/primitives/Line.hpp"
 
 namespace msgui
 {

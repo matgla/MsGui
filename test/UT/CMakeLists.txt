@@ -1,5 +1,5 @@
 include_directories(../lib)
-include_directories(${PROJECT_SOURCE_DIR})
+include_directories(${PROJECT_SOURCE_DIR}/src)
 
 set (test_sources
     GraphicDriverTests.cpp

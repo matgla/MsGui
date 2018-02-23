@@ -1,6 +1,6 @@
 #pragma once
 
-#include "IWidget.hpp"
+#include "msgui/IWidget.hpp"
 
 namespace msgui
 {

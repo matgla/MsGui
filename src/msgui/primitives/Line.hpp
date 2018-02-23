@@ -1,8 +1,8 @@
 #pragma once
 
-#include "gui.hpp"
-#include "primitives/IShape.hpp"
-#include "vector2d.hpp"
+#include "msgui/gui.hpp"
+#include "msgui/primitives/IShape.hpp"
+#include "msgui/vector2d.hpp"
 
 namespace msgui
 {

@@ -1,7 +1,7 @@
 #include "catch.hpp"
 
-#include "src/GraphicDriver.hpp"
-#include "src/Vector2d.hpp"
+#include "msgui/GraphicDriver.hpp"
+#include "msgui/Vector2d.hpp"
 
 namespace msgui
 {

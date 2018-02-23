@@ -2,7 +2,7 @@
 
 #include <optional>
 
-#include "graphicDriver.hpp"
+#include "msgui/graphicDriver.hpp"
 
 namespace msgui
 {
