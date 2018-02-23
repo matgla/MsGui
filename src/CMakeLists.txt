@@ -1,22 +1,23 @@
 set(SOURCES_DIR "${PROJECT_SOURCE_DIR}/src")
+set(INCLUDES_DIR "${PROJECT_SOURCE_DIR}/include")
 
-include_directories(${SOURCES_DIR})
+include_directories(${INCLUDES_DIR})
 
 set (production_includes
-    ${SOURCES_DIR}/msgui/Area.hpp 
-    ${SOURCES_DIR}/msgui/GraphicDriver.hpp 
-    ${SOURCES_DIR}/msgui/Gui.hpp 
-    ${SOURCES_DIR}/msgui/IWidget.hpp 
-    ${SOURCES_DIR}/msgui/primitives/IShape.hpp 
-    ${SOURCES_DIR}/msgui/primitives/Line.hpp 
-    ${SOURCES_DIR}/msgui/primitives/Rectangle.hpp 
-    ${SOURCES_DIR}/msgui/WidgetBase.hpp 
-    ${SOURCES_DIR}/msgui/Window.hpp 
+    ${INCLUDES_DIR}/msgui/Area.hpp 
+    ${INCLUDES_DIR}/msgui/GraphicDriver.hpp 
+    ${INCLUDES_DIR}/msgui/Gui.hpp 
+    ${INCLUDES_DIR}/msgui/IWidget.hpp 
+    ${INCLUDES_DIR}/msgui/primitives/IShape.hpp 
+    ${INCLUDES_DIR}/msgui/primitives/Line.hpp 
+    ${INCLUDES_DIR}/msgui/primitives/Rectangle.hpp 
+    ${INCLUDES_DIR}/msgui/WidgetBase.hpp 
+    ${INCLUDES_DIR}/msgui/Window.hpp 
 )
 
 set (production_sources
-    ${SOURCES_DIR}/msgui/GraphicDriver.cpp 
-    ${SOURCES_DIR}/msgui/WidgetBase.cpp 
+    ${SOURCES_DIR}/GraphicDriver.cpp 
+    ${SOURCES_DIR}/WidgetBase.cpp 
 )
 
 set (sources
@@ -33,4 +34,3 @@ else (DEBUG)
 endif (DEBUG)
 
 add_library(msgui ${sources})
-
