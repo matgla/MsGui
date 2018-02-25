@@ -6,6 +6,8 @@ set (production_includes
     ${INCLUDES_DIR}/msgui/BitMap.hpp 
     ${INCLUDES_DIR}/msgui/BitMapHelpers.hpp 
     ${INCLUDES_DIR}/msgui/GraphicDriver.hpp 
+    ${INCLUDES_DIR}/msgui/Font.hpp 
+    ${INCLUDES_DIR}/msgui/fonts/Font5x7.hpp 
     ${INCLUDES_DIR}/msgui/Gui.hpp 
     ${INCLUDES_DIR}/msgui/IWidget.hpp 
     ${INCLUDES_DIR}/msgui/primitives/IShape.hpp 
@@ -17,6 +19,8 @@ set (production_includes
 
 set (production_sources
     ${SOURCES_DIR}/GraphicDriver.cpp 
+    ${SOURCES_DIR}/fonts/Font5x7.cpp 
+    
     ${SOURCES_DIR}/WidgetBase.cpp 
 )
 

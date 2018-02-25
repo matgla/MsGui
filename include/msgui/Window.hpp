@@ -10,7 +10,7 @@ class Window : public WidgetBase
 {
 public:
     Window(Vector2d pos, int height, int width, std::string_view title = "")
-        : fullscreen_(false), pos_(pos), height_(height), width_(width)
+        : WidgetBase(pos), fullscreen_(false), height_(height), width_(width)
     {
     }
 
@@ -24,7 +24,7 @@ public:
         }
         else
         {
-            Area area{{pos_.x, pos_.y}, {pos_.x + width_, pos_.y + height_}};
+            Area area{{position_.x, position_.y}, {position_.x + width_, position_.y + height_}};
             frame.area(area);
         }
         frame.fullfiled(false);
@@ -52,7 +52,6 @@ public:
 private:
     StaticVector<IWidget*, N> childs_;
     bool fullscreen_;
-    Vector2d pos_;
     int height_;
     int width_;
 };

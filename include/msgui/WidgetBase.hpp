@@ -1,6 +1,7 @@
 #pragma once
 
 #include "msgui/IWidget.hpp"
+#include "msgui/Vector2d.hpp"
 
 namespace msgui
 {
@@ -8,7 +9,7 @@ namespace msgui
 class WidgetBase : public IWidget
 {
 public:
-    WidgetBase();
+    WidgetBase(const Vector2d& position);
 
     virtual void show() final;
     virtual void hide() final;
@@ -16,5 +17,6 @@ public:
 
 protected:
     bool visible_;
+    Vector2d position_;
 };
 } // namespace msgui

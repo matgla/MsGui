@@ -3,8 +3,9 @@
 namespace msgui
 {
 
-WidgetBase::WidgetBase()
-    : visible_(true)
+WidgetBase::WidgetBase(const Vector2d& position)
+    : visible_(true),
+      position_(position)
 {
 }
 
