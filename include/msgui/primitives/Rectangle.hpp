@@ -14,7 +14,7 @@ class Rectangle : public IShape
 {
 public:
     Rectangle(Area area = {}, bool fullfiled = true)
-        : area_(area), fullfiled_(true)
+        : area_(area), fullfiled_(fullfiled)
     {
     }
 
@@ -23,7 +23,7 @@ public:
         area_ = area;
     }
 
-    void draw() const override
+    void draw() override
     {
         if (fullfiled_)
         {
@@ -40,12 +40,12 @@ public:
             Line top{{area_.start.x, area_.start.y}, {area_.end.x, area_.start.y}};
             Line left{{area_.start.x, area_.start.y}, {area_.start.x, area_.end.y}};
             Line bottom{{area_.start.x, area_.end.y}, {area_.end.x, area_.end.y}};
-            // Line right{{area_.end.x, area_.start.y}, {area_.end.x, area_.end.y}};
+            Line right{{area_.end.x, area_.start.y}, {area_.end.x, area_.end.y}};
 
             top.draw();
             left.draw();
             bottom.draw();
-            // right.draw();
+            right.draw();
         }
     }
 

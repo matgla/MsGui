@@ -13,11 +13,11 @@ GraphicDriver::GraphicDriver(SetPixelCallback setPixel, GetWidthCallback getWidt
 
 void GraphicDriver::setPixel(int x, int y, bool enable)
 {
-    if (x <= 0 || x > getWidth_())
+    if (x < 0 || x >= getWidth_())
     {
         return;
     }
-    if (y <= 0 || y > getHeight_())
+    if (y < 0 || y >= getHeight_())
     {
         return;
     }

@@ -1,10 +1,10 @@
 set(SOURCES_DIR "${PROJECT_SOURCE_DIR}/src")
 set(INCLUDES_DIR "${PROJECT_SOURCE_DIR}/include")
 
-include_directories(${INCLUDES_DIR})
-
 set (production_includes
     ${INCLUDES_DIR}/msgui/Area.hpp 
+    ${INCLUDES_DIR}/msgui/BitMap.hpp 
+    ${INCLUDES_DIR}/msgui/BitMapHelpers.hpp 
     ${INCLUDES_DIR}/msgui/GraphicDriver.hpp 
     ${INCLUDES_DIR}/msgui/Gui.hpp 
     ${INCLUDES_DIR}/msgui/IWidget.hpp 
@@ -34,3 +34,4 @@ else (DEBUG)
 endif (DEBUG)
 
 add_library(msgui ${sources})
+target_include_directories(msgui PUBLIC ${INCLUDES_DIR})

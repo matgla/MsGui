@@ -3,6 +3,7 @@ include_directories(${PROJECT_SOURCE_DIR}/include)
 include_directories(${PROJECT_SOURCE_DIR}/src)
 
 set (test_sources
+    BitMapTests.cpp
     GraphicDriverTests.cpp
     Runner.cpp
     WidgetBaseTests.cpp

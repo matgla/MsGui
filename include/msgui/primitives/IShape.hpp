@@ -8,8 +8,8 @@ namespace primitives
 class IShape
 {
 public:
-    virtual void draw() const = 0;
-    virtual ~IShape()         = default;
+    virtual void draw() = 0;
+    virtual ~IShape()   = default;
 };
 
 } // namespace primitives
