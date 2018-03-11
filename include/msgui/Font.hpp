@@ -22,7 +22,7 @@ public:
 
     const BitMap<Width, Height>& get(int c) const
     {
-        int position = c - 31;
+        int position = c - Offset;
         if (position < 0 || position > NumberOfCharacters - 2)
         {
             return data_[0]; // unknown character

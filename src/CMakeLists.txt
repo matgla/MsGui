@@ -39,3 +39,4 @@ endif (DEBUG)
 
 add_library(msgui ${sources})
 target_include_directories(msgui PUBLIC ${INCLUDES_DIR})
+target_link_libraries(msgui eul)

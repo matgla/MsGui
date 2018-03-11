@@ -1,6 +1,6 @@
 #pragma once
 
-#include <functional>
+#include "eul/function.hpp"
 
 namespace msgui
 {
@@ -8,10 +8,10 @@ namespace msgui
 class GraphicDriver
 {
 public:
-    using SetPixelCallback  = std::function<void(int, int, bool)>;
-    using GetWidthCallback  = std::function<int()>;
-    using GetHeightCallback = std::function<int()>;
-    using DrawCallback      = std::function<void()>;
+    using SetPixelCallback  = eul::function<void(int, int, bool), 8>;
+    using GetWidthCallback  = eul::function<int(), 8>;
+    using GetHeightCallback = eul::function<int(), 8>;
+    using DrawCallback      = eul::function<void(), 8>;
 
     GraphicDriver(SetPixelCallback setPixel, GetWidthCallback getWidth, GetHeightCallback getHeight, DrawCallback draw);
 

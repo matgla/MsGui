@@ -10,7 +10,7 @@ namespace fonts
 constexpr int width                       = 5;
 constexpr int height                      = 7;
 constexpr int numberOfCharacters          = 96;
-constexpr int firstAsciiCharacterPosition = 32;
+constexpr int firstAsciiCharacterPosition = 31;
 
 using Char5x7     = msgui::BitMap<5, 7>;
 using Font5x7Type = msgui::Font<
