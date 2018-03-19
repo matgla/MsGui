@@ -5,9 +5,13 @@
 namespace msgui
 {
 
-class WidgetForTest : public WidgetBase
+class WidgetForTest : public WidgetBase<>
 {
 public:
+    WidgetForTest(const Vector2d& position) : WidgetBase(position)
+    {
+    }
+    
     void draw() const override
     {
     }
@@ -20,7 +24,7 @@ public:
 
 TEST_CASE("WidgetBase should", "[WidgetBase]")
 {
-    WidgetForTest widget;
+    WidgetForTest widget({0, 0});
     SECTION("Show")
     {
         widget.hide();

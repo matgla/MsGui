@@ -1,26 +1,26 @@
-#include "msgui/WidgetBase.hpp"
+// #include "msgui/WidgetBase.hpp"
 
-namespace msgui
-{
+// namespace msgui
+// {
 
-WidgetBase::WidgetBase(const Vector2d& position)
-    : visible_(true),
-      position_(position)
-{
-}
+// WidgetBase::WidgetBase(const Vector2d& position)
+//     : visible_(true),
+//       position_(position)
+// {
+// }
 
-void WidgetBase::show()
-{
-    visible_ = true;
-}
+// void WidgetBase::show()
+// {
+//     visible_ = true;
+// }
 
-void WidgetBase::hide()
-{
-    visible_ = false;
-}
+// void WidgetBase::hide()
+// {
+//     visible_ = false;
+// }
 
-void WidgetBase::move(Vector2d pos)
-{
-}
+// void WidgetBase::move(Vector2d pos)
+// {
+// }
 
-} // namespace msgui
+// } // namespace msgui
