@@ -8,11 +8,16 @@
 namespace msgui
 {
 
-template<std::size_t CallbackSize = 0, typename... Events>
+template<typename Events>
 class WidgetBase : public IWidget
 {
+    using EventLoop = eul::event_loop<Events>;
+    
+    template <typename Event>
+    using CallbackType = typename EventLoop::callback_type<Event>;
+
 public:
-    WidgetBase(const Vector2d& position) : visible_(true), position_(position)
+    WidgetBase(const Vector2d& position) : visible_(true), active_(false), position_(position)
     {
     }
 
@@ -26,14 +31,40 @@ public:
         visible_ = false;    
     }
     
+    virtual void active() final 
+    {
+        active_ = true;
+    }
+    
+    virtual void inactive() final 
+    {
+        active_ = false;
+    }
+    
     virtual void move(Vector2d position)
     {
         position_ = position;
     }
 
+    template <typename Event>
+    void process(const Event& event)
+    {
+        if (active_)
+        {
+            eventLoop_.dispatch(event);
+        }
+    }
+    
+    template <typename Event>
+    void registerHandler(const CallbackType<Event>& handler)
+    {
+        eventLoop_.template register_event<Event>(handler);
+    }
+    
 protected:
     bool visible_;
+    bool active_;
     Vector2d position_;
-    eul::event_loop<CallbackSize, Events...> event_loop;
+    EventLoop eventLoop_;
 };
 } // namespace msgui

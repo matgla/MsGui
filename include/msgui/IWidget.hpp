@@ -14,6 +14,8 @@ public:
     virtual void move(Vector2d pos) = 0;
     virtual void show()             = 0;
     virtual void hide()             = 0;
+    virtual void active()           = 0;
+    virtual void inactive()         = 0;
 };
 
 } // namespace msgui
