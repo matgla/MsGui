@@ -74,9 +74,22 @@ TEST_CASE("WidgetBase should", "[WidgetBase]")
             std::string payload;
         };
         
-        WidgetForTest<eul::events<16, TestEvent>> widget;
-        widget.process(TestEvent{"some data"});
+        int nrOfCalls = 0;
         
+        REQUIRE(0 == nrOfCalls);
+        
+        WidgetForTest<eul::events<16, TestEvent>> widget({0, 0});
+        widget.process(TestEvent{"some data"});
+        REQUIRE(0 == nrOfCalls);
+        
+        widget.process(TestEvent{"some other data"});
+        widget.registerHandler<TestEvent>([&nrOfCalls](const TestEvent& event){++nrOfCalls;});
+        REQUIRE(0 == nrOfCalls);
+        
+        widget.active();
+        REQUIRE(widget.isActive());
+        widget.process(TestEvent{"some other data"});
+        REQUIRE(1 == nrOfCalls);
     }
 }
 

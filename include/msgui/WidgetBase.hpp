@@ -13,8 +13,8 @@ class WidgetBase : public IWidget
 {
     using EventLoop = eul::event_loop<Events>;
     
-    template <typename Event>
-    using CallbackType = typename EventLoop::callback_type<Event>;
+    template<typename Event>
+    using CallbackType = typename eul::event_loop<Events>::template callback_type<Event>;
 
 public:
     WidgetBase(const Vector2d& position) : visible_(true), active_(false), position_(position)
