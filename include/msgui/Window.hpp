@@ -1,15 +1,20 @@
 #pragma once
+
+#include <tuple>
+
 #include "StaticVector.hpp"
 #include "WidgetBase.hpp"
 #include "primitives/Rectangle.hpp"
+#include "msgui/GraphicDriver.hpp"
+
 namespace msgui
 {
 
-template <std::size_t N>
+template <GraphicDriver GraphicDriverType, typename Widgets...>
 class Window : public WidgetBase
 {
 public:
-    Window(Vector2d pos, int height, int width, std::string_view title = "")
+    Window(Vector2d pos, int height, int width, std::string_view title, Widgets&&... widgets)
         : WidgetBase(pos), fullscreen_(false), height_(height), width_(width)
     {
     }
@@ -50,11 +55,18 @@ public:
     }
 
 private:
-    StaticVector<IWidget*, N> childs_;
+    
+    std::tuple<Widgets...> childs_;
     bool fullscreen_;
     int height_;
     int width_;
 };
+
+template <typename... Widgets>
+auto make_window(Widgets&&... widgets)
+{
+    
+}
 
 
 } // namespace msgui

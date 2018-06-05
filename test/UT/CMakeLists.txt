@@ -7,9 +7,10 @@ set (test_sources
     GraphicDriverTests.cpp
     Runner.cpp
     WidgetBaseTests.cpp
+    ButtonTests.cpp
 )
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unused-result -std=c++1z -Wall -Wextra")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unused-result -std=c++1z -Wall -Wextra -fconcepts")
 
 if (DEBUG)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Og")

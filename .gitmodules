@@ -1,3 +1,6 @@
 [submodule "lib/eul"]
 	path = lib/eul
 	url = git@github.com:matgla/EmbeddedUtilityLibraries.git
+[submodule "lib/boost/di/di"]
+	path = lib/boost/di/di
+	url = https://github.com/boost-experimental/di.git

@@ -17,19 +17,11 @@ set (production_includes
     ${INCLUDES_DIR}/msgui/Window.hpp 
 )
 
-set (production_sources
-    ${SOURCES_DIR}/GraphicDriver.cpp 
-    ${SOURCES_DIR}/fonts/Font5x7.cpp 
-    
-    ${SOURCES_DIR}/WidgetBase.cpp 
-)
-
 set (sources
-    ${production_includes}
     ${production_sources}
 )
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unused-result -std=c++1z -Wall -Wextra")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unused-result -std=c++1z -Wall -Wextra -fconcepts")
 
 if (DEBUG)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Og")
@@ -37,6 +29,6 @@ else (DEBUG)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
 endif (DEBUG)
 
-add_library(msgui ${sources})
-target_include_directories(msgui PUBLIC ${INCLUDES_DIR})
-target_link_libraries(msgui eul)
+add_library(msgui INTERFACE)
+target_sources(msgui INTERFACE ${sources})
+target_link_libraries(msgui INTERFACE eul)

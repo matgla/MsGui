@@ -4,20 +4,26 @@
 
 #include "msgui/IWidget.hpp"
 #include "msgui/Vector2d.hpp"
+#include "msgui/GraphicDriver.hpp"
+
 
 namespace msgui
 {
 
-template<typename Events>
+template<GraphicDriver GraphicDriverType, typename Events>
 class WidgetBase : public IWidget
 {
+private:
     using EventLoop = eul::event_loop<Events>;
-    
+
     template<typename Event>
     using CallbackType = typename eul::event_loop<Events>::template callback_type<Event>;
 
+
 public:
-    WidgetBase(const Vector2d& position) : visible_(true), active_(false), position_(position)
+
+    WidgetBase(const Vector2d& position, GraphicDriverType& driver) 
+        : visible_(true), active_(false), position_(position), driver_(driver)
     {
     }
 
@@ -66,5 +72,6 @@ protected:
     bool active_;
     Vector2d position_;
     EventLoop eventLoop_;
+    GraphicDriverType& driver_;
 };
 } // namespace msgui
