@@ -1,6 +1,7 @@
 include_directories(../lib)
 include_directories(${PROJECT_SOURCE_DIR}/include)
 include_directories(${PROJECT_SOURCE_DIR}/src)
+include_directories(${PROJECT_SOURCE_DIR}/test)
 
 set (test_sources
     BitMapTests.cpp
@@ -11,6 +12,8 @@ set (test_sources
 )
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unused-result -std=c++1z -Wall -Wextra -fconcepts")
+
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 if (DEBUG)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Og")

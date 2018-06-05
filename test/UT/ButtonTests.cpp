@@ -1,25 +1,29 @@
-
 #include "catch.hpp"
 
-#include "msgui/Button.hpp"
+#include "msgui/Factory.hpp"
+
+#include "UT/stubs/DriverForTest.hpp"
 
 namespace msgui
 {
 
 TEST_CASE("Button should", "[Button]")
 {
+    stubs::DriverForTest driver;
+    using factory = Factory<stubs::DriverForTest>;
+    factory::setDriver(driver);
+
     SECTION("perform action")
     {
-        Button<sizeof(int*)> button({0, 0});
+        auto button  = factory::button<32>();
         bool pressed = false;
-        button.onClick([&pressed](){ pressed = true;});
+        button.onClick([&pressed]() { pressed = true; });
         button.press();
         REQUIRE(pressed == false);
         button.active();
         button.press();
         REQUIRE(pressed == true);
     }
-
 }
 
 } // namespace msgui

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "msgui/Vector2d.hpp"
+#include "msgui/Position.hpp"
 
 namespace msgui
 {
@@ -11,7 +11,7 @@ public:
     virtual ~IWidget() = default;
 
     virtual void draw() const       = 0;
-    virtual void move(Vector2d pos) = 0;
+    virtual void move(Position pos) = 0;
     virtual void show()             = 0;
     virtual void hide()             = 0;
     virtual void active()           = 0;

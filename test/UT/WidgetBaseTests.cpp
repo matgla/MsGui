@@ -2,35 +2,13 @@
 
 #include <string>
 
+#include "UT/stubs/WidgetForTest.hpp"
 #include "msgui/WidgetBase.hpp"
 
 namespace msgui
 {
 
-template<typename Events>
-class WidgetForTest : public WidgetBase<Events>
-{
-public:
-    WidgetForTest(const Vector2d& position) : WidgetBase<Events>(position)
-    {
-    }
-    
-    void draw() const override
-    {
-    }
-
-    bool visible()
-    {
-        return this->visible_;
-    }
-    
-    bool isActive()
-    {
-        return this->active_;
-    }
-};
-
-using WidgetWithoutActions = WidgetForTest<eul::events<0>>;
+using WidgetWithoutActions = stubs::WidgetForTest<eul::events<0>>;
 
 TEST_CASE("WidgetBase should", "[WidgetBase]")
 {
@@ -50,7 +28,7 @@ TEST_CASE("WidgetBase should", "[WidgetBase]")
         widget.hide();
         REQUIRE_FALSE(widget.visible());
     }
-    
+
     SECTION("Active")
     {
         widget.inactive();
@@ -58,7 +36,7 @@ TEST_CASE("WidgetBase should", "[WidgetBase]")
         widget.active();
         REQUIRE(widget.isActive());
     }
-    
+
     SECTION("Inactive")
     {
         widget.active();
@@ -73,19 +51,19 @@ TEST_CASE("WidgetBase should", "[WidgetBase]")
         {
             std::string payload;
         };
-        
+
         int nrOfCalls = 0;
-        
+
         REQUIRE(0 == nrOfCalls);
-        
-        WidgetForTest<eul::events<16, TestEvent>> widget({0, 0});
+
+        stubs::WidgetForTest<eul::events<16, TestEvent>> widget({0, 0});
         widget.process(TestEvent{"some data"});
         REQUIRE(0 == nrOfCalls);
-        
+
         widget.process(TestEvent{"some other data"});
-        widget.registerHandler<TestEvent>([&nrOfCalls](const TestEvent& event){++nrOfCalls;});
+        widget.registerHandler<TestEvent>([&nrOfCalls](const TestEvent& event) { ++nrOfCalls; });
         REQUIRE(0 == nrOfCalls);
-        
+
         widget.active();
         REQUIRE(widget.isActive());
         widget.process(TestEvent{"some other data"});

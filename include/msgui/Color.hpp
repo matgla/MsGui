@@ -5,12 +5,8 @@
 namespace msgui
 {
 
-template <typename T>
-concept Color = requires(T t)
+struct Color
 {
-    { t.redValue() -> int },
-    { t.greenValue() -> int },
-    { t.blueValue() -> int }
 };
 
 } // namespace msgui

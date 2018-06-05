@@ -3,14 +3,14 @@
 #include <eul/event_loop.hpp>
 
 #include "msgui/IWidget.hpp"
-#include "msgui/Vector2d.hpp"
+#include "msgui/Position.hpp"
 #include "msgui/GraphicDriver.hpp"
 
 
 namespace msgui
 {
 
-template<GraphicDriver GraphicDriverType, typename Events>
+template<typename Events, GraphicDriver GraphicDriverType>
 class WidgetBase : public IWidget
 {
 private:
@@ -22,7 +22,7 @@ private:
 
 public:
 
-    WidgetBase(const Vector2d& position, GraphicDriverType& driver) 
+    WidgetBase(const Position& position, GraphicDriverType& driver) 
         : visible_(true), active_(false), position_(position), driver_(driver)
     {
     }
@@ -47,7 +47,7 @@ public:
         active_ = false;
     }
     
-    virtual void move(Vector2d position)
+    virtual void move(Position position)
     {
         position_ = position;
     }
@@ -70,7 +70,7 @@ public:
 protected:
     bool visible_;
     bool active_;
-    Vector2d position_;
+    Position position_;
     EventLoop eventLoop_;
     GraphicDriverType& driver_;
 };
