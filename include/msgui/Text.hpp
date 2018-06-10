@@ -2,23 +2,28 @@
 
 #include <string_view>
 
-#include "msgui/Gui.hpp"
-#include "msgui/Vector2d.hpp"
+#include "msgui/GraphicDriver.hpp"
+#include "msgui/Position.hpp"
 #include "msgui/WidgetBase.hpp"
 
 namespace msgui
 {
 
-template <typename FontType>
-class Text : public WidgetBase
+template <std::size_t CallbackSize, typename FontType, GraphicDriver GraphicDriverType>
+class Text : public WidgetBase<eul::events<16>, GraphicDriverType>
 {
 public:
-    Text(const char* text, Vector2d position, const FontType& font)
-        : WidgetBase(position), text_(text), font_(font)
+    Text(GraphicDriverType& driver, const char* text, Position position, const FontType& font, const Color& color = colors::black())
+        : WidgetBase<eul::events<16>, GraphicDriverType>(position, driver),
+          position_(position),
+          driver_(driver),
+          text_(text),
+          font_(font),
+          color_(color)
     {
     }
 
-    void drawChar(Vector2d pos, char c) const
+    void drawChar(Position pos, char c) const
     {
         const auto& letterBitMap = font_.get(c);
         for (int y = 0; y < letterBitMap.height(); ++y)
@@ -26,14 +31,17 @@ public:
             for (int x = 0; x < letterBitMap.height(); ++x)
             {
                 bool enable = letterBitMap.getPixel(x, y);
-                Gui::get().getDriver().setPixel(x + pos.x, y + pos.y, enable);
+                if (enable)
+                {
+                    driver_.setPixel({x + pos.x, y + pos.y}, color_);
+                }
             }
         }
     }
 
     void print(std::string_view text) const
     {
-        Vector2d pos = position_;
+        Position pos = position_;
         for (const auto& letter : text)
         {
             drawChar(pos, letter);
@@ -43,7 +51,7 @@ public:
 
     int widthToEnd() const
     {
-        return Gui::get().getDriver().width() - position_.x;
+        return driver_.width() - position_.x;
     }
 
     virtual void draw() const override
@@ -63,9 +71,17 @@ public:
         text_ = text;
     }
 
+    void setColor(const msgui::Color& color)
+    {
+        color_ = color;
+    }
+
 protected:
+    Position position_;
+    GraphicDriverType& driver_;
     std::string_view text_;
     const FontType& font_;
+    msgui::Color color_;
 };
 
 } // namespace msgui

@@ -15,7 +15,7 @@ TEST_CASE("Button should", "[Button]")
 
     SECTION("perform action")
     {
-        auto button  = factory::button<32>();
+        auto button  = factory::make_button<32>();
         bool pressed = false;
         button.onClick([&pressed]() { pressed = true; });
         button.press();

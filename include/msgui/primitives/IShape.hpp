@@ -1,5 +1,7 @@
 #pragma once
 
+#include "msgui/Color.hpp"
+
 namespace msgui
 {
 namespace primitives
@@ -8,9 +10,9 @@ namespace primitives
 class IShape
 {
 public:
-    virtual void draw() = 0;
-    virtual ~IShape()   = default;
+    virtual void draw(const msgui::Color& color) = 0;
+    virtual ~IShape()                            = default;
 };
 
 } // namespace primitives
-} // namespace gui
+} // namespace msgui

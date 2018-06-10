@@ -1,6 +1,6 @@
 #pragma once
 
-#include "msgui/vector2d.hpp"
+#include "msgui/Vector2d.hpp"
 
 namespace msgui
 {

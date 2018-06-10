@@ -1,1 +1,5 @@
-add_subdirectory(UT)
+if (SIMULATOR)
+    add_subdirectory(simulator)
+else (SIMULATOR)
+    add_subdirectory(UT)
+endif (SIMULATOR)

@@ -18,6 +18,7 @@ set (production_includes
 )
 
 set (sources
+    ${SOURCES_DIR}/fonts/Font5x7.cpp     
     ${production_sources}
 )
 

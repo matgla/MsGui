@@ -2,9 +2,9 @@
 
 #include <algorithm>
 
-#include "msgui/gui.hpp"
+#include "msgui/Vector2d.hpp"
 #include "msgui/primitives/IShape.hpp"
-#include "msgui/vector2d.hpp"
+#include "msgui/primitives/Line.hpp"
 
 namespace msgui
 {
@@ -17,15 +17,16 @@ int sgn(T val)
     return (T(0) < val) - (val < T(0));
 }
 
+template <GraphicDriver GraphicDriverType>
 class Line : public IShape
 {
 public:
-    Line(Vector2d start, Vector2d end)
-        : start_(start), end_(end)
+    Line(GraphicDriverType& driver, Vector2d start, Vector2d end)
+        : driver_(driver), start_(start), end_(end)
     {
     }
 
-    void draw() override
+    void draw(const msgui::Color& color) override
     {
         // Bresenham algorithm
         if (start_.x > end_.x)
@@ -41,7 +42,7 @@ public:
             }
             for (int y = start_.y; y <= end_.y; ++y)
             {
-                Gui::get().getDriver().setPixel(start_.x, y, true);
+                driver_.setPixel({start_.x, y}, color);
             }
         }
         else
@@ -53,7 +54,7 @@ public:
 
             for (int x = start_.x; x < end_.x; ++x)
             {
-                Gui::get().getDriver().setPixel(x, y, true);
+                driver_.setPixel({x, y}, color);
                 if (deltaErr > 0)
                 {
                     y = y + 1;
@@ -65,9 +66,10 @@ public:
     }
 
 private:
+    GraphicDriverType& driver_;
     Vector2d start_;
     Vector2d end_;
 };
 
 } // namespace primitives
-} // namespace gui
+} // namespace msgui
