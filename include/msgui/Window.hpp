@@ -4,19 +4,18 @@
 #include <utility>
 
 #include "StaticVector.hpp"
-#include "eul/function.hpp"
-#include "eul/generics/for_each.hpp"
-#include "msgui/GraphicDriver.hpp"
+#include <eul/function.hpp>
+#include <eul/mpl/tuples/for_each.hpp>
 #include "msgui/WidgetBase.hpp"
 #include "primitives/Rectangle.hpp"
 
 namespace msgui
 {
 
-template <GraphicDriver GraphicDriverType, typename... Widgets>
+template <typename GraphicDriverType, typename... Widgets>
 class Window;
 
-template <GraphicDriver GraphicDriverType>
+template <typename GraphicDriverType>
 class WindowConfig
 {
     using WindowConfigType = WindowConfig<GraphicDriverType>;
@@ -100,7 +99,7 @@ private:
     GraphicDriverType& driver_;
 };
 
-template <GraphicDriver GraphicDriverType, typename... Widgets>
+template <typename GraphicDriverType, typename... Widgets>
 class Window : public WidgetBase<eul::events<16>, GraphicDriverType>
 {
 public:
@@ -120,7 +119,7 @@ public:
         primitives::Rectangle<GraphicDriverType> frame(driver_, Area{{0, 0}, {18, 30}});
         if (fullscreen_)
         {
-            Area area{{0, 0}, {driver_.width() - 1, driver_.height() - 1}};
+            Area area{{0, 0}, {static_cast<int>(driver_.width() - 1), static_cast<int>(driver_.height() - 1)}};
             frame.area(area);
         }
         else
@@ -131,7 +130,7 @@ public:
         frame.fullfiled(false);
         frame.draw({0, 0, 0});
 
-        eul::generics::for_each(childs_, [](const auto& child) { child.draw(); });
+        eul::mpl::tuples::for_each(childs_, [](const auto& child) { child.draw(); });
     }
 
     void attach(IWidget& widget)

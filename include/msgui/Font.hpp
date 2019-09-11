@@ -1,7 +1,6 @@
 #pragma once
 
 #include <array>
-#include <initializer_list>
 
 #include "msgui/BitMap.hpp"
 
@@ -15,8 +14,8 @@ public:
     using FontData = std::array<BitMap<Width, Height>, NumberOfCharacters>;
 
     template <typename... A>
-    Font(A... args)
-        : data_{{args...}}
+    constexpr Font(A&&... args)
+        : data_{std::forward<A>(args)...}
     {
     }
 

@@ -11,7 +11,7 @@ namespace msgui
 namespace primitives
 {
 
-template <GraphicDriver GraphicDriverType>
+template <typename GraphicDriverType>
 class Rectangle : public IShape
 {
 public:
@@ -33,7 +33,7 @@ public:
             {
                 for (int y = area_.start.y; y < area_.end.y; ++y)
                 {
-                    driver_.setPixel({x, y}, color);
+                    driver_.setPixel(x, y);
                 }
             }
         }

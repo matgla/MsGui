@@ -9,7 +9,7 @@
 namespace msgui
 {
 
-template <std::size_t CallbackSize, typename FontType, GraphicDriver GraphicDriverType>
+template <std::size_t CallbackSize, typename FontType, typename GraphicDriverType>
 class Text : public WidgetBase<eul::events<16>, GraphicDriverType>
 {
 public:
@@ -33,7 +33,7 @@ public:
                 bool enable = letterBitMap.getPixel(x, y);
                 if (enable)
                 {
-                    driver_.setPixel({x + pos.x, y + pos.y}, color_);
+                    driver_.setPixel(static_cast<uint32_t>(x + pos.x), static_cast<uint32_t>(y + pos.y));
                 }
             }
         }

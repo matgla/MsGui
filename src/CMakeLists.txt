@@ -2,23 +2,23 @@ set(SOURCES_DIR "${PROJECT_SOURCE_DIR}/src")
 set(INCLUDES_DIR "${PROJECT_SOURCE_DIR}/include")
 
 set (production_includes
-    ${INCLUDES_DIR}/msgui/Area.hpp 
-    ${INCLUDES_DIR}/msgui/BitMap.hpp 
-    ${INCLUDES_DIR}/msgui/BitMapHelpers.hpp 
-    ${INCLUDES_DIR}/msgui/GraphicDriver.hpp 
-    ${INCLUDES_DIR}/msgui/Font.hpp 
-    ${INCLUDES_DIR}/msgui/fonts/Font5x7.hpp 
-    ${INCLUDES_DIR}/msgui/Gui.hpp 
-    ${INCLUDES_DIR}/msgui/IWidget.hpp 
-    ${INCLUDES_DIR}/msgui/primitives/IShape.hpp 
-    ${INCLUDES_DIR}/msgui/primitives/Line.hpp 
-    ${INCLUDES_DIR}/msgui/primitives/Rectangle.hpp 
-    ${INCLUDES_DIR}/msgui/WidgetBase.hpp 
-    ${INCLUDES_DIR}/msgui/Window.hpp 
+    ${INCLUDES_DIR}/msgui/Area.hpp
+    ${INCLUDES_DIR}/msgui/BitMap.hpp
+    ${INCLUDES_DIR}/msgui/BitMapHelpers.hpp
+    ${INCLUDES_DIR}/msgui/GraphicDriver.hpp
+    ${INCLUDES_DIR}/msgui/Font.hpp
+    ${INCLUDES_DIR}/msgui/fonts/Font5x7.hpp
+    ${INCLUDES_DIR}/msgui/Gui.hpp
+    ${INCLUDES_DIR}/msgui/IWidget.hpp
+    ${INCLUDES_DIR}/msgui/primitives/IShape.hpp
+    ${INCLUDES_DIR}/msgui/primitives/Line.hpp
+    ${INCLUDES_DIR}/msgui/primitives/Rectangle.hpp
+    ${INCLUDES_DIR}/msgui/WidgetBase.hpp
+    ${INCLUDES_DIR}/msgui/Window.hpp
 )
 
 set (sources
-    ${SOURCES_DIR}/fonts/Font5x7.cpp     
+    ${SOURCES_DIR}/fonts/Font5x7.cpp
     ${production_sources}
 )
 
@@ -33,3 +33,4 @@ endif (DEBUG)
 add_library(msgui INTERFACE)
 target_sources(msgui INTERFACE ${sources})
 target_link_libraries(msgui INTERFACE eul)
+target_include_directories(msgui INTERFACE ${PROJECT_SOURCE_DIR}/include)

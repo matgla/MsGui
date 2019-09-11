@@ -4,13 +4,12 @@
 
 #include "msgui/IWidget.hpp"
 #include "msgui/Position.hpp"
-#include "msgui/GraphicDriver.hpp"
 
 
 namespace msgui
 {
 
-template<typename Events, GraphicDriver GraphicDriverType>
+template<typename Events, typename GraphicDriverType>
 class WidgetBase : public IWidget
 {
 private:
@@ -22,7 +21,7 @@ private:
 
 public:
 
-    WidgetBase(const Position& position, GraphicDriverType& driver) 
+    WidgetBase(const Position& position, GraphicDriverType& driver)
         : visible_(true), active_(false), position_(position), driver_(driver)
     {
     }
@@ -31,22 +30,22 @@ public:
     {
         visible_ = true;
     }
-    
+
     virtual void hide() final
     {
-        visible_ = false;    
+        visible_ = false;
     }
-    
-    virtual void active() final 
+
+    virtual void active() final
     {
         active_ = true;
     }
-    
-    virtual void inactive() final 
+
+    virtual void inactive() final
     {
         active_ = false;
     }
-    
+
     virtual void move(Position position)
     {
         position_ = position;
@@ -60,13 +59,13 @@ public:
             eventLoop_.dispatch(event);
         }
     }
-    
+
     template <typename Event>
     void registerHandler(const CallbackType<Event>& handler)
     {
         eventLoop_.template register_event<Event>(handler);
     }
-    
+
 protected:
     bool visible_;
     bool active_;

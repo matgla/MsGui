@@ -3,6 +3,7 @@
 #include <array>
 #include <cstdint>
 #include <tuple>
+#include <cstdlib>
 
 namespace msgui
 {
@@ -127,7 +128,7 @@ constexpr const std::array<uint8_t, GetSize<uint8_t, width, height>::value> make
             make_pixel(bitmap.data(), get<0>(data...), 0, 0, 0, 0, 0, 0, 0);
         }
     }
-    return std::move(bitmap);
+    return bitmap;
 }
 
 } // namespace msgui

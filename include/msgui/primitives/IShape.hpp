@@ -11,7 +11,7 @@ class IShape
 {
 public:
     virtual void draw(const msgui::Color& color) = 0;
-    virtual ~IShape()                            = default;
+    // virtual ~IShape()                            = default;
 };
 
 } // namespace primitives

@@ -17,7 +17,7 @@ int sgn(T val)
     return (T(0) < val) - (val < T(0));
 }
 
-template <GraphicDriver GraphicDriverType>
+template <typename GraphicDriverType>
 class Line : public IShape
 {
 public:
@@ -42,7 +42,7 @@ public:
             }
             for (int y = start_.y; y <= end_.y; ++y)
             {
-                driver_.setPixel({start_.x, y}, color);
+                driver_.setPixel(start_.x, y);
             }
         }
         else
@@ -54,7 +54,7 @@ public:
 
             for (int x = start_.x; x < end_.x; ++x)
             {
-                driver_.setPixel({x, y}, color);
+                driver_.setPixel(x, y);
                 if (deltaErr > 0)
                 {
                     y = y + 1;

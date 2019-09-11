@@ -10,9 +10,10 @@ class BitMap
 {
 public:
     using DataType = std::array<uint8_t, GetSize<uint8_t, Width, Height>::value>;
+
     template <typename... Data>
-    constexpr BitMap(Data... data)
-        : data_(make_bitmap<Width, Height>(data...))
+    constexpr BitMap(Data&&... data)
+        : data_(make_bitmap<Width, Height>(std::forward<Data>(data)...))
     {
     }
 
@@ -67,7 +68,7 @@ public:
     }
 
 private:
-    DataType data_;
+    const DataType data_;
 };
 
 } // namespace msgui

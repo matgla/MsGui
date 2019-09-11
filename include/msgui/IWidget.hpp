@@ -8,7 +8,7 @@ namespace msgui
 class IWidget
 {
 public:
-    virtual ~IWidget() = default;
+    // virtual ~IWidget() = default;
 
     virtual void draw() const       = 0;
     virtual void move(Position pos) = 0;
