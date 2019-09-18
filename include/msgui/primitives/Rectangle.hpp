@@ -33,7 +33,7 @@ public:
             {
                 for (int y = area_.start.y; y < area_.end.y; ++y)
                 {
-                    driver_.setPixel(x, y);
+                    // driver_.setPixel(x, y);
                 }
             }
         }

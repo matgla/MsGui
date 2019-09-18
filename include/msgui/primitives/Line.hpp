@@ -2,6 +2,8 @@
 
 #include <algorithm>
 
+#include <eul/utils/unused.hpp>
+
 #include "msgui/Vector2d.hpp"
 #include "msgui/primitives/IShape.hpp"
 #include "msgui/primitives/Line.hpp"
@@ -28,6 +30,7 @@ public:
 
     void draw(const msgui::Color& color) override
     {
+        UNUSED1(color);
         // Bresenham algorithm
         if (start_.x > end_.x)
         {
@@ -42,7 +45,7 @@ public:
             }
             for (int y = start_.y; y <= end_.y; ++y)
             {
-                driver_.setPixel(start_.x, y);
+                // driver_.setPixel(start_.x, y);
             }
         }
         else
@@ -54,7 +57,7 @@ public:
 
             for (int x = start_.x; x < end_.x; ++x)
             {
-                driver_.setPixel(x, y);
+                // driver_.setPixel(x, y);
                 if (deltaErr > 0)
                 {
                     y = y + 1;

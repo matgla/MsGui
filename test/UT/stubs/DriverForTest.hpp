@@ -1,6 +1,8 @@
 #include "msgui/Color.hpp"
 #include "msgui/Position.hpp"
 
+#include <eul/utils/unused.hpp>
+
 namespace msgui
 {
 namespace stubs
@@ -15,18 +17,24 @@ public:
         (void)color;
     }
 
-    int width()
+    uint32_t width()
     {
         return 0;
     }
 
-    int height()
+    uint32_t height()
     {
         return 0;
     }
 
     void draw()
     {
+    }
+
+    template <typename ChunkType>
+    void write(const ChunkType data)
+    {
+        UNUSED1(data);
     }
 };
 

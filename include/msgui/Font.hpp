@@ -7,11 +7,11 @@
 namespace msgui
 {
 
-template <int Width, int Height, int NumberOfCharacters, int Offset>
+template <int Width, int Height, int NumberOfCharacters, int Offset, typename MemoryPolicy, template<typename, typename> typename ChunkPolicy, typename ChunkParameters>
 class Font
 {
 public:
-    using FontData = std::array<BitMap<Width, Height>, NumberOfCharacters>;
+    using FontData = std::array<BitMap<Width, Height, MemoryPolicy, ChunkPolicy, ChunkParameters>, NumberOfCharacters>;
 
     template <typename... A>
     constexpr Font(A&&... args)
@@ -19,7 +19,7 @@ public:
     {
     }
 
-    const BitMap<Width, Height>& get(int c) const
+    const BitMap<Width, Height, MemoryPolicy, ChunkPolicy, ChunkParameters>& get(int c) const
     {
         int position = c - Offset;
         if (position < 0 || position > NumberOfCharacters - 2)

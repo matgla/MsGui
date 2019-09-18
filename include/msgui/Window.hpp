@@ -12,13 +12,13 @@
 namespace msgui
 {
 
-template <typename GraphicDriverType, typename... Widgets>
+template <typename GraphicDriverType, typename MemoryPolicy, template <typename, typename> typename ChunkPolicy, typename ChunkParameters, typename... Widgets>
 class Window;
 
-template <typename GraphicDriverType>
+template <typename GraphicDriverType, typename MemoryPolicy, template <typename, typename> typename ChunkPolicy, typename ChunkParameters>
 class WindowConfig
 {
-    using WindowConfigType = WindowConfig<GraphicDriverType>;
+    using WindowConfigType = WindowConfig<GraphicDriverType, MemoryPolicy, ChunkPolicy, ChunkParameters>;
 
 public:
     using Height = int;
@@ -63,7 +63,7 @@ public:
     template <typename... Widgets>
     auto make(Widgets&&... widgets)
     {
-        return Window<GraphicDriverType, Widgets...>(*this, widgets...);
+        return Window<GraphicDriverType, MemoryPolicy, ChunkPolicy, ChunkParameters, Widgets...>(*this, widgets...);
     }
 
     constexpr Position position() const
@@ -99,11 +99,11 @@ private:
     GraphicDriverType& driver_;
 };
 
-template <typename GraphicDriverType, typename... Widgets>
+template <typename GraphicDriverType, typename MemoryPolicy, template<typename, typename> typename ChunkPolicy, typename ChunkParameters, typename... Widgets>
 class Window : public WidgetBase<eul::events<16>, GraphicDriverType>
 {
 public:
-    Window(const WindowConfig<GraphicDriverType>& config, Widgets&&... widgets)
+    Window(const WindowConfig<GraphicDriverType, MemoryPolicy, ChunkPolicy, ChunkParameters>& config, Widgets&&... widgets)
         : WidgetBase<eul::events<16>, GraphicDriverType>(config.position(), config.driver()),
           driver_(config.driver()),
           childs_(std::forward<Widgets>(widgets)...),
@@ -130,7 +130,25 @@ public:
         frame.fullfiled(false);
         frame.draw({0, 0, 0});
 
-        eul::mpl::tuples::for_each(childs_, [](const auto& child) { child.draw(); });
+        typename ChunkParameters::ChunkType chunk = 0;
+        for (uint32_t x = 0; x < driver_.height(); x += ChunkParameters::height)
+        {
+            for (uint32_t y = 0; y < driver_.width(); y += ChunkParameters::width)
+            {
+                eul::mpl::tuples::for_each(childs_, [&chunk, x, y](const auto& child)
+                {
+                    chunk |= child.getChunk(x, y);
+                });
+                driver_.write(chunk);
+            }
+        }
+
+        // for each chunk, needed chunk size x and y
+        // chunk |= child
+        // eul::mpl::tuples::for_each(childs_, [](const auto& child)
+        // {
+        //     child.draw();
+        // });
     }
 
     void attach(IWidget& widget)

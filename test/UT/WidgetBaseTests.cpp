@@ -61,7 +61,7 @@ TEST_CASE("WidgetBase should", "[WidgetBase]")
         REQUIRE(0 == nrOfCalls);
 
         widget.process(TestEvent{"some other data"});
-        widget.registerHandler<TestEvent>([&nrOfCalls](const TestEvent& event) { ++nrOfCalls; });
+        widget.registerHandler<TestEvent>([&nrOfCalls](const TestEvent& event) { static_cast<void>(event); ++nrOfCalls; });
         REQUIRE(0 == nrOfCalls);
 
         widget.active();
