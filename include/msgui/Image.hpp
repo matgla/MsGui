@@ -10,16 +10,17 @@ namespace msgui
 {
 
 template <typename GraphicDriverType, typename BitMapType>
-class Image :
-    public WidgetBase<eul::events<16>, GraphicDriverType>
+class Image
+    : public WidgetBase<eul::events<16>, GraphicDriverType>
 {
 public:
-    constexpr Image(Position position, GraphicDriverType& driver, BitMapType&& bitmap)
+    constexpr Image(Position position, GraphicDriverType& driver, const BitMapType& bitmap)
         : WidgetBase<eul::events<16>, GraphicDriverType>(position, driver)
-        , bitmap_(std::move(bitmap))
+        , bitmap_(bitmap)
     {
 
     }
+
     constexpr BitMapType::ChunkType getChunk(const int x, const int y) const
     {
         const int x_pos = x - this->position_.x;
@@ -45,8 +46,9 @@ public:
     {
 
     }
+
 private:
-    const BitMapType bitmap_;
+    const BitMapType& bitmap_;
 };
 
 } // namespace msgui

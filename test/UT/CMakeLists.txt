@@ -10,6 +10,7 @@ set (test_sources
     ButtonTests.cpp
     WindowTests.cpp
     ImageTests.cpp
+    TextTests.cpp
 )
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}  -Wno-unused-result -std=c++1z -Wall -Wextra -fconcepts")

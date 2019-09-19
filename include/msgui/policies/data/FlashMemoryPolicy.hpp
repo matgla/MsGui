@@ -3,6 +3,7 @@
 #pragma once
 
 #include <array>
+#include <avr/pgmspace.h>
 
 namespace msgui
 {
@@ -19,14 +20,14 @@ class FlashMemoryPolicy<uint8_t>
 {
 public:
     template <typename DataType>
-    constexpr static uint8_t read(const DataType& data, std::size_t index)
+    static uint8_t read(const DataType& data, std::size_t index)
     {
         if (index > data.size())
         {
             return 0; // TODO: some error handling should be added
         }
 
-        return data[index];//pgm_read_byte(&data[index]);
+        return pgm_read_byte(&data[index]);
     }
 
     template <typename DataType>

@@ -14,7 +14,7 @@ namespace msgui
 TEST_CASE("Button should", "[Button]")
 {
     stubs::DriverForTest driver;
-    using FactoryType = Factory<stubs::DriverForTest, policies::data::FlashMemoryPolicy<uint8_t>, policies::chunk::ChunkPolicy, policies::chunk::SSD1308ChunkPolicyParameters>;
+    using FactoryType = Factory<decltype(driver), policies::data::FlashMemoryPolicy<uint8_t>, policies::chunk::ChunkPolicy, policies::chunk::SSD1308ChunkPolicyParameters>;
     FactoryType factory(driver);
 
     SECTION("perform action")

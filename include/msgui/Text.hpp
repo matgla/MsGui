@@ -5,6 +5,10 @@
 #include "msgui/GraphicDriver.hpp"
 #include "msgui/Position.hpp"
 #include "msgui/WidgetBase.hpp"
+#include "msgui/Image.hpp"
+#include "msgui/BitMap.hpp"
+
+// #include <board.hpp>
 
 namespace msgui
 {
@@ -15,7 +19,6 @@ class Text : public WidgetBase<eul::events<16>, GraphicDriverType>
 public:
     Text(GraphicDriverType& driver, const char* text, Position position, const FontType& font, const Color& color = colors::black())
         : WidgetBase<eul::events<16>, GraphicDriverType>(position, driver),
-          position_(position),
           driver_(driver),
           text_(text),
           font_(font),
@@ -34,44 +37,80 @@ public:
         driver_.write(0x00);
     }
 
-    ChunkParameters::ChunkType getChunk(int x, int y) const
+    constexpr ChunkParameters::ChunkType getChunk(int x, int y) const
     {
-        int x_start = x + ChunkParameters::width;
-        int x_offset = x_start - position_.x;
-        if (x <= 0) return 0;
-        int y_start = y + ChunkParameters::height;
-        int y_offset = y_start - position_.y;
-        if (y <= 0) return 0;
+        // using Serial = board::interfaces::SERIAL;
 
-        // int x_bitoffset = x_offset % ChunkParameters::width;
-        int y_bitoffset = y_offset % ChunkParameters::height;
+        // const int line_size = driver_.width() - this->position_.x;
+        // const int text_size_x = (font_.width() + 1) * text_.length();
+        // const int number_of_lines = text_size_x / line_size + 1;
+        // const int text_size_y = (font_.height() + 1) * number_of_lines;
+        // Serial::write("X_pos: ");
+        const int x_pos = x - this->position_.x;
+        // char data[20];
+        // itoa(x_pos, data, 10);
+        // Serial::write(data);
 
-        // int line = x_offset / ChunkParameters::height;
-        // int column = y_offset / ChunkParameters::width;
+        if (x_pos < 0)
+        {
+            // Serial::write("\n");
+            return 0;
+        }
 
-        // get letter bitmap
+        const int y_pos = y - this->position_.y;
+        // itoa(y_pos, data, 10);
 
-        int letter_index = (x_offset / (font_.width() + 1));
+        // Serial::write(", Y_pos: ");
+        // Serial::write(data);
+        if (y_pos < 0)
+        {
+            // Serial::write("\n");
+            return 0;
+        }
 
-        // relokacja może być w dół albo w górę, teraz tego nie ogarniam ...., musze rozpisać algorytm
+        int letter_index = x_pos / (font_.width() + 1);
 
-        typename ChunkParameters::ChunkType chunk = font_.get(text_[letter_index]).getByte(x_offset) << y_bitoffset;
-        return chunk;
+        if (static_cast<std::size_t>(letter_index) >= text_.size())
+        {
+            // Serial::write("\n");
+
+            return 0;
+        }
+        // itoa(letter_index, data, 10);
+
+        // Serial::write(", index: ");
+        // Serial::write(data);
+        const auto& bitmap = font_.get(text_[letter_index]);
+        // TODO: Fix multiline
+
+        const auto letter_position_x = letter_index * (font_.width() + 1);
+        // itoa(letter_position_x, data, 10);
+
+        // Serial::write(", Letter_position: ");
+        // Serial::write(data);
+        Image<GraphicDriverType, typename std::decay<decltype(bitmap)>::type> image(Position{letter_position_x, this->position_.y}, driver_, bitmap);
+        auto byte =  image.getChunk(x_pos, y_pos);
+        // itoa(byte, data, 16);
+
+        // Serial::write(", byte: 0x");
+        // Serial::write(data);
+        // Serial::write("\n");
+        return byte;
     }
 
     void print(std::string_view text) const
     {
-        Position pos = position_;
-        for (const auto& letter : text)
-        {
-            drawChar(pos, letter);
-            pos.x += font_.width() + 1;
-        }
+        static_cast<void>(text);
+        // for (const auto& letter : text)
+        // {
+            // drawChar(pos, letter);
+            // pos.x += font_.width() + 1;
+        // }
     }
 
     int widthToEnd() const
     {
-        return driver_.width() - position_.x;
+        return driver_.width() - this->position_.x;
     }
 
     virtual void draw() const override
@@ -97,7 +136,6 @@ public:
     }
 
 protected:
-    Position position_;
     GraphicDriverType& driver_;
     std::string_view text_;
     const FontType& font_;

@@ -1,3 +1,7 @@
+#pragma once
+
+#include <vector>
+
 #include "msgui/Color.hpp"
 #include "msgui/Position.hpp"
 
@@ -8,6 +12,7 @@ namespace msgui
 namespace stubs
 {
 
+template <uint32_t Width = 0, uint32_t Height = 0>
 class DriverForTest
 {
 public:
@@ -19,12 +24,12 @@ public:
 
     uint32_t width()
     {
-        return 0;
+        return Width;
     }
 
     uint32_t height()
     {
-        return 0;
+        return Height;
     }
 
     void draw()
@@ -34,8 +39,10 @@ public:
     template <typename ChunkType>
     void write(const ChunkType data)
     {
-        UNUSED1(data);
+        buffer_.push_back(data);
     }
+
+    std::vector<uint8_t> buffer_;
 };
 
 } // namespace stubs

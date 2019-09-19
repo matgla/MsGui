@@ -116,30 +116,31 @@ public:
 
     virtual void draw() const final
     {
-        primitives::Rectangle<GraphicDriverType> frame(driver_, Area{{0, 0}, {18, 30}});
-        if (fullscreen_)
-        {
-            Area area{{0, 0}, {static_cast<int>(driver_.width() - 1), static_cast<int>(driver_.height() - 1)}};
-            frame.area(area);
-        }
-        else
-        {
-            Area area{{this->position_.x, this->position_.y}, {this->position_.x + width_ - 1, this->position_.y + height_ - 1}};
-            frame.area(area);
-        }
-        frame.fullfiled(false);
-        frame.draw({0, 0, 0});
+        // primitives::Rectangle<GraphicDriverType> frame(driver_, Area{{0, 0}, {18, 30}});
+        // if (fullscreen_)
+        // {
+        //     Area area{{0, 0}, {static_cast<int>(driver_.width() - 1), static_cast<int>(driver_.height() - 1)}};
+        //     frame.area(area);
+        // }
+        // else
+        // {
+        //     Area area{{this->position_.x, this->position_.y}, {this->position_.x + width_ - 1, this->position_.y + height_ - 1}};
+        //     frame.area(area);
+        // }
+        // frame.fullfiled(false);
+        // frame.draw({0, 0, 0});
 
         typename ChunkParameters::ChunkType chunk = 0;
-        for (uint32_t x = 0; x < driver_.height(); x += ChunkParameters::height)
+        for (uint32_t y = 0; y < driver_.height(); y += ChunkParameters::height)
         {
-            for (uint32_t y = 0; y < driver_.width(); y += ChunkParameters::width)
+            for (uint32_t x = 0; x < driver_.width(); x += ChunkParameters::width)
             {
                 eul::mpl::tuples::for_each(childs_, [&chunk, x, y](const auto& child)
                 {
                     chunk |= child.getChunk(x, y);
                 });
                 driver_.write(chunk);
+                chunk = 0;
             }
         }
 

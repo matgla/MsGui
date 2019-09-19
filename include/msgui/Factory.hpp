@@ -38,16 +38,15 @@ public:
     }
 
     template <int Width, int Height, typename... Data>
-    constexpr auto make_bitmap(Data&&... data)
+    constexpr auto make_bitmap(Data&&... data) const
     {
         return BitMap<Width, Height, MemoryPolicy, ChunkPolicy, ChunkParameters>(std::forward<Data>(data)...);
     }
 
-    template <int Width, int Height, typename... Data>
-    constexpr auto make_image(Position pos, Data&&... data)
+    template <typename BitMapType>
+    constexpr auto make_image(Position pos, const BitMapType& bitmap) const
     {
-        using BitMapType = BitMap<Width, Height, MemoryPolicy, ChunkPolicy, ChunkParameters>;
-        return Image<GraphicDriverType, BitMapType>(pos, driver_, BitMapType(std::forward<Data>(data)...));
+        return Image<GraphicDriverType, BitMapType>(pos, driver_, bitmap);
     }
 
     GraphicDriverType& driver_;

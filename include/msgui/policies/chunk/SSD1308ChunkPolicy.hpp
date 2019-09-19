@@ -20,6 +20,15 @@ struct GetSize
 };
 
 
+constexpr static unsigned char lookup[16] = {
+0x0, 0x8, 0x4, 0xc, 0x2, 0xa, 0x6, 0xe,
+0x1, 0x9, 0x5, 0xd, 0x3, 0xb, 0x7, 0xf, };
+
+constexpr uint8_t reverse(uint8_t n) {
+   // Reverse the top and bottom nibble then swap them.
+   return (lookup[n&0b1111] << 4) | lookup[n>>4];
+}
+
 constexpr uint8_t get_mask(int line_height)
 {
     uint8_t mask = 0;
@@ -85,7 +94,7 @@ public:
             byte |= (bit << (Parameters::height - 1 - i ));//- (line % Parameters::height)));
         }
 
-        return byte;
+        return reverse(byte);
     }
 
     template <size_t N, typename... Args>

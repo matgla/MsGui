@@ -9,11 +9,11 @@ namespace stubs
 {
 
 template <typename Events>
-class WidgetForTest : public WidgetBase<Events, DriverForTest>
+class WidgetForTest : public WidgetBase<Events, DriverForTest<0,0>>
 {
 public:
     WidgetForTest(const Position& position)
-        : WidgetBase<Events, DriverForTest>(position, driverForTest_)
+        : WidgetBase<Events, DriverForTest<0,0>>(position, driverForTest_)
     {
     }
 
@@ -31,7 +31,7 @@ public:
         return this->active_;
     }
 
-    DriverForTest driverForTest_;
+    DriverForTest<0,0> driverForTest_;
 };
 
 } // namespace stubs

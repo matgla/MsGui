@@ -1,0 +1,33 @@
+
+#include <catch.hpp>
+
+#include "msgui/Text.hpp"
+
+#include "msgui/policies/chunk/SSD1308ChunkPolicy.hpp"
+#include "msgui/policies/data/FlashMemoryPolicy.hpp"
+#include "msgui/Factory.hpp"
+#include "msgui/fonts/Font5x7.hpp"
+
+#include "UT/stubs/DriverForTest.hpp"
+
+
+namespace msgui
+{
+
+TEST_CASE("Text should", "[Text]")
+{
+    stubs::DriverForTest<80, 30> driver;
+    using FactoryType = Factory<decltype(driver), policies::data::FlashMemoryPolicy<uint8_t>, policies::chunk::ChunkPolicy, policies::chunk::SSD1308ChunkPolicyParameters>;
+    FactoryType factory(driver);
+    constexpr msgui::fonts::Font5x7Type font = msgui::fonts::createFont();
+
+    SECTION("Text should get correct text without offset")
+    {
+        const auto text = factory.make_text("Hello World", font, Position{0, 0});
+        REQUIRE(text.getChunk(0, 0) == 0x7f);
+        REQUIRE(text.getChunk(1, 0) == 0x08);
+
+    }
+}
+
+} // namespace msgui
