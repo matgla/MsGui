@@ -3,7 +3,7 @@
 #include "msgui/Factory.hpp"
 
 #include "msgui/policies/chunk/SSD1308ChunkPolicy.hpp"
-#include "msgui/policies/data/FlashMemoryPolicy.hpp"
+#include "msgui/policies/data/DefaultMemoryPolicy.hpp"
 
 #include "UT/stubs/ChunkPolicyForTest.hpp"
 #include "UT/stubs/DriverForTest.hpp"
@@ -14,7 +14,7 @@ namespace msgui
 TEST_CASE("Button should", "[Button]")
 {
     stubs::DriverForTest driver;
-    using FactoryType = Factory<decltype(driver), policies::data::FlashMemoryPolicy<uint8_t>, policies::chunk::ChunkPolicy, policies::chunk::SSD1308ChunkPolicyParameters>;
+    using FactoryType = Factory<decltype(driver), policies::data::DefaultMemoryPolicy<uint8_t>, policies::chunk::ChunkPolicy, policies::chunk::SSD1308ChunkPolicyParameters>;
     FactoryType factory(driver);
 
     SECTION("perform action")

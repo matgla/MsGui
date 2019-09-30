@@ -3,7 +3,6 @@
 #pragma once
 
 #include <array>
-#include <avr/pgmspace.h>
 
 namespace msgui
 {
@@ -13,10 +12,10 @@ namespace data
 {
 
 template <typename DataType>
-class FlashMemoryPolicy;
+class DefaultMemoryPolicy;
 
 template<>
-class FlashMemoryPolicy<uint8_t>
+class DefaultMemoryPolicy<uint8_t>
 {
 public:
     template <typename DataType>
@@ -27,7 +26,7 @@ public:
             return 0; // TODO: some error handling should be added
         }
 
-        return pgm_read_byte(&data[index]);
+        return data[index];
     }
 
     template <typename DataType>
@@ -37,7 +36,6 @@ public:
         {
             return; // TODO: some error handling should be added
         }
-
         data[index] = value;
     }
 };

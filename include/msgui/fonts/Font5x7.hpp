@@ -3,7 +3,7 @@
 #include "msgui/Font.hpp"
 
 #include <msgui/policies/chunk/SSD1308ChunkPolicy.hpp>
-#include <msgui/policies/data/FlashMemoryPolicy.hpp>
+#include <msgui/policies/data/DefaultMemoryPolicy.hpp>
 
 namespace msgui
 {

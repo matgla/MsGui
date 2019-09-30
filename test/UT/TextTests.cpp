@@ -4,7 +4,7 @@
 #include "msgui/Text.hpp"
 
 #include "msgui/policies/chunk/SSD1308ChunkPolicy.hpp"
-#include "msgui/policies/data/FlashMemoryPolicy.hpp"
+#include "msgui/policies/data/DefaultMemoryPolicy.hpp"
 #include "msgui/Factory.hpp"
 #include "msgui/fonts/Font5x7.hpp"
 
@@ -17,7 +17,7 @@ namespace msgui
 TEST_CASE("Text should", "[Text]")
 {
     stubs::DriverForTest<80, 30> driver;
-    using FactoryType = Factory<decltype(driver), policies::data::FlashMemoryPolicy<uint8_t>, policies::chunk::ChunkPolicy, policies::chunk::SSD1308ChunkPolicyParameters>;
+    using FactoryType = Factory<decltype(driver), policies::data::DefaultMemoryPolicy<uint8_t>, policies::chunk::ChunkPolicy, policies::chunk::SSD1308ChunkPolicyParameters>;
     FactoryType factory(driver);
     constexpr msgui::fonts::Font5x7Type font = msgui::fonts::createFont();
 
