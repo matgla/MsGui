@@ -1,0 +1,15 @@
+name: C++ UT runner
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v1
+        - name: create workspace
+          run: mkdir build && cd build
+        - name: configure
+          run: cmake .. -DBUILD_TESTS=ON
+        - name: build
+          run: make
