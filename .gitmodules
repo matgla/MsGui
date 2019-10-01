@@ -1,12 +1,9 @@
 [submodule "lib/eul"]
 	path = lib/eul
-	url = git@github.com:matgla/EmbeddedUtilityLibraries.git
+	url = https://github.com/matgla/EmbeddedUtilityLibraries.git
 [submodule "lib/boost/di/di"]
 	path = lib/boost/di/di
 	url = https://github.com/boost-experimental/di.git
-[submodule ".\\test\\simulator\\lib\\bitmap"]
-	path = .\\test\\simulator\\lib\\bitmap
-	url = https://github.com/ArashPartow/bitmap
 [submodule ".\\test\\simulator\\lib\\bitmap\\bitmap"]
 	path = .\\test\\simulator\\lib\\bitmap\\bitmap
 	url = https://github.com/ArashPartow/bitmap
