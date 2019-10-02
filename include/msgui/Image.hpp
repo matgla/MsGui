@@ -21,7 +21,7 @@ public:
 
     }
 
-    constexpr BitMapType::ChunkType getChunk(const int x, const int y) const
+    constexpr typename BitMapType::ChunkType getChunk(const int x, const int y) const
     {
         const int x_pos = x - this->position_.x;
         int y_pos = y - this->position_.y;

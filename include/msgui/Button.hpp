@@ -38,7 +38,7 @@ public:
     {
     }
 
-    ChunkParameters::ChunkType getChunk(int x, int y) const
+    typename ChunkParameters::ChunkType getChunk(int x, int y) const
     {
         UNUSED2(x, y);
         return {};

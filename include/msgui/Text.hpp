@@ -37,7 +37,7 @@ public:
         driver_.write(0x00);
     }
 
-    constexpr ChunkParameters::ChunkType getChunk(int x, int y) const
+    constexpr typename ChunkParameters::ChunkType getChunk(int x, int y) const
     {
         // using Serial = board::interfaces::SERIAL;
 

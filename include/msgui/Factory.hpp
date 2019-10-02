@@ -49,6 +49,12 @@ public:
         return Image<GraphicDriverType, BitMapType>(pos, driver_, bitmap);
     }
 
+    template <template <typename, template<typename, typename> typename, typename> typename FontType>
+    constexpr auto make_font()
+    {
+        return FontType<MemoryPolicy, ChunkPolicy, ChunkParameters>::createFont();
+    }
+
     GraphicDriverType& driver_;
 };
 

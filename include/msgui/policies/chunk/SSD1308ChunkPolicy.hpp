@@ -64,7 +64,7 @@ private:
 
 public:
     template <typename DataType>
-    constexpr static Parameters::ChunkType getChunk(const DataType& data, const int line, const int column)
+    constexpr static typename Parameters::ChunkType getChunk(const DataType& data, const int line, const int column)
     {
         int x = column;
         if (x >= Config::image_width)

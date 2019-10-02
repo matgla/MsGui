@@ -13,7 +13,7 @@ class BitMap
 public:
     using DataType = std::array<uint8_t, GetSize<uint8_t, Width, Height>::value>;
     using ChunkPolicyType = ChunkPolicy<msgui::policies::chunk::ChunkPolicyConfig<MemoryPolicy, Width, Height>, ChunkParameters>;
-    using ChunkType = ChunkParameters::ChunkType;
+    using ChunkType = typename ChunkParameters::ChunkType;
     template <typename... Data>
     constexpr BitMap(Data&&... data)
         : data_(ChunkPolicyType::make_bitmap(std::forward<Data>(data)...))
@@ -60,7 +60,7 @@ public:
         return ChunkPolicyType::getChunk(data_, 0, x);
     }
 
-    constexpr ChunkParameters::ChunkType getChunk(const int x, const int y) const
+    constexpr typename ChunkParameters::ChunkType getChunk(const int x, const int y) const
     {
         return ChunkPolicyType::getChunk(data_, y, x);
     }
