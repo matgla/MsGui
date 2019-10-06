@@ -28,12 +28,12 @@ public:
         const int x_pos = x - this->position_.x;
         int y_pos = y - this->position_.y;
 
-        if (x_pos < 0 || x_pos >= GraphicDriverType::screen_width)
+        if (x_pos < 0)
         {
             return 0;
         }
 
-        if (y_pos <= -1 * static_cast<int>(BitMapType::Chunk::height))
+        if (y_pos <= -8)
         {
             return 0;
         }

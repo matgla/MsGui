@@ -16,6 +16,8 @@ template <uint32_t Width = 0, uint32_t Height = 0>
 class DriverForTest
 {
 public:
+    constexpr static uint32_t screen_width = Width;
+    constexpr static uint32_t screen_height = Height;
     void setPixel(const Position& position, const Color& color)
     {
         (void)position;

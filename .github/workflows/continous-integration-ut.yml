@@ -14,4 +14,4 @@ jobs:
     - name: pull docker
       run: docker pull matgla/cpp_gcc:1.0.0
     - name: run docker
-      run: docker run -v $(pwd):/build -i matgla/cpp_gcc:1.0.0 /bin/ls /build -a
+      run: docker run -v $(pwd):/build -i matgla/cpp_gcc:1.0.0 /build/scripts/ci/test_ut.sh
