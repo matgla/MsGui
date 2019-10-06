@@ -23,11 +23,11 @@ print_success()
   return 1
 }
 
-print_status "Configuring workspace"
+print_status "Configuring workspace: $(pwd)"
 mkdir -p build
 [ $? -eq 0 ] || print_error "Configuration of workspace failed!" || exit $?;
 cd build
-print_status "Configuring project"
+print_status "Configuring project: $(pwd)"
 cmake .. -DBUILD_TESTS=ON
 [ $? -eq 0 ] || print_error "Configuration of project failed!" || exit $?;
 print_status "Build project with threads: $(nproc)"
