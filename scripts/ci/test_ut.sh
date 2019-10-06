@@ -20,7 +20,7 @@ print_status()
 print_success()
 {
   echo "$COLOR_GREEN OK: $@ $COLOR_WHITE"
-  return 1
+  return 0
 }
 
 print_status "Configuring workspace: $(pwd)"
