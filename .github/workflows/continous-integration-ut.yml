@@ -1,6 +1,9 @@
 name: C++ UT runner
 
-on: [push]
+on:
+  push:
+    paths-ignore:
+    - 'page/**'
 
 jobs:
   build:
