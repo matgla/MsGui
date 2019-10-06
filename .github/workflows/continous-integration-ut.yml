@@ -8,4 +8,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/run_ut_gcc@v1
+    - uses: actions/checkout@v1
+    - name: list
+      run: pwd && ls
+    - name: pull docker
+      run: docker pull matgla/cpp_gcc:1.0.0
+    - name: run docker
+      run: docker run -it matgla/cpp_gcc /bin/echo I am working
