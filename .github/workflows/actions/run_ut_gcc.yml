@@ -4,3 +4,4 @@ description: 'Runs Unit Tests inside GCC environment'
 runs:
   using: 'docker'
   image: 'docker://matgla/cpp_gcc:1.0.0'
+  entrypoint: 
