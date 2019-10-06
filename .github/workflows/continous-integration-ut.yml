@@ -8,12 +8,4 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
-    - name: list
-      run: pwd && ls
-    - name: create workspace
-      run: mkdir build && cd build
-    - name: configure
-      run: cd build && cmake .. -DBUILD_TESTS=ON
-    - name: build
-      run: cd build && make
+    - uses: actions/run_ut_gcc@v1

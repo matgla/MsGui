@@ -6,6 +6,8 @@
 #include <msgui/WidgetBase.hpp>
 #include <msgui/Position.hpp>
 
+#include <iostream>
+
 namespace msgui
 {
 
@@ -26,15 +28,16 @@ public:
         const int x_pos = x - this->position_.x;
         int y_pos = y - this->position_.y;
 
-        // TODO: remove hardcodes
-        if (x_pos < 0)
+        if (x_pos < 0 || x_pos >= GraphicDriverType::screen_width)
         {
             return 0;
         }
-        if (y_pos <= -8)
+
+        if (y_pos <= -1 * static_cast<int>(BitMapType::Chunk::height))
         {
             return 0;
         }
+
         int offset = y_pos < 0 ? 0 - y_pos : 0;
         if (y_pos < 0) y_pos = 0;
 

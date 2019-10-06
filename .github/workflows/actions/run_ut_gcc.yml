@@ -1,0 +1,6 @@
+# run_ut_gcc.yml
+name: 'Run UTs GCC'
+description: 'Runs Unit Tests inside GCC environment'
+runs:
+  using: 'docker'
+  image: 'docker://matgla/cpp_gcc:1.0.0'

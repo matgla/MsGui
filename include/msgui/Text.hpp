@@ -39,32 +39,17 @@ public:
 
     constexpr typename ChunkParameters::ChunkType getChunk(int x, int y) const
     {
-        // using Serial = board::interfaces::SERIAL;
-
-        // const int line_size = driver_.width() - this->position_.x;
-        // const int text_size_x = (font_.width() + 1) * text_.length();
-        // const int number_of_lines = text_size_x / line_size + 1;
-        // const int text_size_y = (font_.height() + 1) * number_of_lines;
-        // Serial::write("X_pos: ");
         const int x_pos = x - this->position_.x;
-        // char data[20];
-        // itoa(x_pos, data, 10);
-        // Serial::write(data);
 
         if (x_pos < 0)
         {
-            // Serial::write("\n");
             return 0;
         }
 
         const int y_pos = y - this->position_.y;
-        // itoa(y_pos, data, 10);
 
-        // Serial::write(", Y_pos: ");
-        // Serial::write(data);
         if (y_pos < 0)
         {
-            // Serial::write("\n");
             return 0;
         }
 
@@ -72,29 +57,14 @@ public:
 
         if (static_cast<std::size_t>(letter_index) >= text_.size())
         {
-            // Serial::write("\n");
-
             return 0;
         }
-        // itoa(letter_index, data, 10);
-
-        // Serial::write(", index: ");
-        // Serial::write(data);
         const auto& bitmap = font_.get(text_[letter_index]);
-        // TODO: Fix multiline
 
         const auto letter_position_x = letter_index * (font_.width() + 1);
-        // itoa(letter_position_x, data, 10);
-
-        // Serial::write(", Letter_position: ");
-        // Serial::write(data);
         Image<GraphicDriverType, typename std::decay<decltype(bitmap)>::type> image(Position{letter_position_x, this->position_.y}, driver_, bitmap);
-        auto byte =  image.getChunk(x_pos, y_pos);
-        // itoa(byte, data, 16);
+        auto byte = image.getChunk(x_pos, y_pos);
 
-        // Serial::write(", byte: 0x");
-        // Serial::write(data);
-        // Serial::write("\n");
         return byte;
     }
 

@@ -9,6 +9,8 @@
 #include "msgui/WidgetBase.hpp"
 #include "primitives/Rectangle.hpp"
 
+#include <iostream>
+
 namespace msgui
 {
 
@@ -131,10 +133,12 @@ public:
         // frame.draw({0, 0, 0});
 
         typename ChunkParameters::ChunkType chunk = 0;
-        for (uint32_t y = 0; y < driver_.height(); y += ChunkParameters::height)
+        for (int y = 0; y < driver_.height(); y += ChunkParameters::height)
         {
-            for (uint32_t x = 0; x < driver_.width(); x += ChunkParameters::width)
+            for (int x = 0; x < driver_.width(); x += ChunkParameters::width)
             {
+                std::cerr << "Getting (y, x) -> (" << y << ", " << x << ")" << std::endl;
+
                 eul::mpl::tuples::for_each(childs_, [&chunk, x, y](const auto& child)
                 {
                     chunk |= child.getChunk(x, y);
