@@ -14,4 +14,4 @@ jobs:
     - name: pull docker
       run: docker pull matgla/cpp_gcc:1.0.0
     - name: run docker
-      run: docker run -it matgla/cpp_gcc /bin/echo I am working
+      run: docker run -i matgla/cpp_gcc /bin/echo I am working
