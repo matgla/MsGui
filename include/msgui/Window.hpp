@@ -32,6 +32,9 @@ public:
     {
     }
 
+    /**
+     * Test documentation
+     */
     WindowConfigType& position(const Position& position)
     {
         position_ = position;
@@ -116,7 +119,7 @@ public:
     {
     }
 
-    virtual void draw() const final
+    void draw() const
     {
         typename ChunkParameters::ChunkType chunk = 0;
         for (uint32_t y = 0; y < driver_.height(); y += ChunkParameters::height)
@@ -131,12 +134,6 @@ public:
                 chunk = 0;
             }
         }
-    }
-
-    void attach(IWidget& widget)
-    {
-
-        // childs_.push_back(&widget);
     }
 
     void fullscreen(bool fullscreen)

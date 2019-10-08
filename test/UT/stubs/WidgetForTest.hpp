@@ -17,10 +17,6 @@ public:
     {
     }
 
-    void draw() const override
-    {
-    }
-
     bool visible()
     {
         return this->visible_;

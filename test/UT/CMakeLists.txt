@@ -5,6 +5,7 @@ include_directories(${PROJECT_SOURCE_DIR}/test)
 
 set (test_sources
     BitMapTests.cpp
+    BitwiseChunkTests.cpp
     Runner.cpp
     WidgetBaseTests.cpp
     ButtonTests.cpp

@@ -5,6 +5,8 @@
 #include <tuple>
 #include <cstdlib>
 
+#include "msgui/details/SizeCalculator.hpp"
+
 namespace msgui
 {
 constexpr uint8_t BITS_IN_BYTE = 8;
@@ -64,30 +66,10 @@ constexpr void make_pixel(uint8_t* byte, bool d0, bool d1, bool d2, bool d3, boo
     }
 }
 
-template <typename Type>
-constexpr std::size_t make_size(const int width, const int height)
-{
-    const float fsize      = static_cast<float>(width) * static_cast<float>(height) / (BITS_IN_BYTE * sizeof(Type));
-    const std::size_t size = static_cast<std::size_t>(fsize);
-    if (fsize == static_cast<float>(size))
-    {
-        return size;
-    }
-    return size + 1;
-}
-
-template <typename Type, int width, int height>
-struct GetSize
-{
-    static_assert(width >= 0, "Width must be >= 0");
-    static_assert(height >= 0, "Height must be >= 0");
-    constexpr static std::size_t value = make_size<Type>(width, height);
-};
-
 template <int width, int height, typename... Data>
-constexpr const std::array<uint8_t, GetSize<uint8_t, width, height>::value> make_bitmap(Data... data)
+constexpr const std::array<uint8_t, details::GetSize<uint8_t, width, height>::value> make_bitmap(Data... data)
 {
-    std::array<uint8_t, GetSize<uint8_t, width, height>::value> bitmap{};
+    std::array<uint8_t, details::GetSize<uint8_t, width, height>::value> bitmap{};
 
     if constexpr (sizeof...(data) >= 8)
     {

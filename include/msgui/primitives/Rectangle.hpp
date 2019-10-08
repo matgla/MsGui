@@ -25,31 +25,31 @@ public:
         area_ = area;
     }
 
-    void draw(const msgui::Color& color) override
-    {
-        if (fullfiled_)
-        {
-            for (int x = area_.start.x; x < area_.end.x; ++x)
-            {
-                for (int y = area_.start.y; y < area_.end.y; ++y)
-                {
-                    // driver_.setPixel(x, y);
-                }
-            }
-        }
-        else
-        {
-            Line top(driver_, {area_.start.x, area_.start.y}, {area_.end.x, area_.start.y});
-            Line left(driver_, {area_.start.x, area_.start.y}, {area_.start.x, area_.end.y});
-            Line bottom(driver_, {area_.start.x, area_.end.y}, {area_.end.x, area_.end.y});
-            Line right(driver_, {area_.end.x, area_.start.y}, {area_.end.x, area_.end.y});
+    // void draw(const msgui::Color& color) override
+    // {
+    //     if (fullfiled_)
+    //     {
+    //         for (int x = area_.start.x; x < area_.end.x; ++x)
+    //         {
+    //             for (int y = area_.start.y; y < area_.end.y; ++y)
+    //             {
+    //                 // driver_.setPixel(x, y);
+    //             }
+    //         }
+    //     }
+    //     else
+    //     {
+    //         Line top(driver_, {area_.start.x, area_.start.y}, {area_.end.x, area_.start.y});
+    //         Line left(driver_, {area_.start.x, area_.start.y}, {area_.start.x, area_.end.y});
+    //         Line bottom(driver_, {area_.start.x, area_.end.y}, {area_.end.x, area_.end.y});
+    //         Line right(driver_, {area_.end.x, area_.start.y}, {area_.end.x, area_.end.y});
 
-            top.draw(color);
-            left.draw(color);
-            bottom.draw(color);
-            right.draw(color);
-        }
-    }
+    //         top.draw(color);
+    //         left.draw(color);
+    //         bottom.draw(color);
+    //         right.draw(color);
+    //     }
+    // }
 
     void fullfiled(bool fullfiled)
     {

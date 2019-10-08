@@ -25,7 +25,7 @@ int main()
     const auto button = factory.make_button<32>();
     constexpr auto font = factory.make_font<msgui::fonts::Font5x7>();
     const auto text   = factory.make_text("Hello World!", font, {10, 0});
-    const auto text2   = factory.make_text("Is Working", font, {10, 16});
+    const auto text2   = factory.make_text("Is Working", font, {0, 8});
     const auto window = factory.configure_window()
                             .width(Simulator::screen_width)
                             .height(Simulator::screen_height)

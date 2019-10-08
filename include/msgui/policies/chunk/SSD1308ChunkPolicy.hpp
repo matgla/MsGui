@@ -4,21 +4,14 @@
 
 #include <eul/utils/unused.hpp>
 
+#include "msgui/details/SizeCalculator.hpp"
+
 namespace msgui
 {
 namespace policies
 {
 namespace chunk
 {
-
-template <typename Type, int width, int height>
-struct GetSize
-{
-    static_assert(width >= 0, "Width must be >= 0");
-    static_assert(height >= 0, "Height must be >= 0");
-    constexpr static std::size_t value = make_size<Type>(width, height);
-};
-
 
 constexpr static unsigned char lookup[16] = {
 0x0, 0x8, 0x4, 0xc, 0x2, 0xa, 0x6, 0xe,
@@ -50,8 +43,8 @@ struct ChunkPolicyConfig
 struct SSD1308ChunkPolicyParameters
 {
     using ChunkType = uint8_t;
-    constexpr static uint8_t height = 8;
-    constexpr static uint8_t width = 1;
+    constexpr static int height = 8;
+    constexpr static int width = 1;
 };
 
 template <typename Config, typename Parameters>
@@ -129,9 +122,9 @@ public:
     }
 
     template <typename... Data>
-    constexpr static const std::array<uint8_t, GetSize<uint8_t, Config::image_width, Config::image_height>::value> make_bitmap(Data&&... data)
+    constexpr static const std::array<uint8_t, details::GetSize<uint8_t, Config::image_width, Config::image_height>::value> make_bitmap(Data&&... data)
     {
-        std::array<uint8_t, GetSize<uint8_t, Config::image_width, Config::image_height>::value> bitmap{};
+        std::array<uint8_t, details::GetSize<uint8_t, Config::image_width, Config::image_height>::value> bitmap{};
         make_pixel(bitmap.data(), 0, data...);
 
         return bitmap;

@@ -14,8 +14,8 @@ namespace simulator
 class SSD1306Simulator
 {
 public:
-    constexpr static uint8_t screen_width = 128;
-    constexpr static uint8_t screen_height = 64;
+    constexpr static uint32_t screen_width = 128;
+    constexpr static uint32_t screen_height = 64;
     constexpr static uint8_t chunk_height =  msgui::policies::chunk::SSD1308ChunkPolicyParameters::height;
     constexpr static uint8_t chunk_width =  msgui::policies::chunk::SSD1308ChunkPolicyParameters::width;
     constexpr static uint8_t number_of_rows = screen_height / chunk_height;
@@ -43,12 +43,12 @@ public:
         }
     }
 
-    constexpr int width() const
+    constexpr uint32_t width() const
     {
         return screen_width;
     }
 
-    constexpr int height() const
+    constexpr uint32_t height() const
     {
         return screen_height;
     }
@@ -75,7 +75,7 @@ public:
                 {
                     if ((data >> bit) & 0x1)
                     {
-                        image.set_pixel(x, y * chunk_width + bit, 255, 255, 255);
+                        image.set_pixel(x, y * chunk_height + bit, 255, 255, 255);
                     }
                 }
             }

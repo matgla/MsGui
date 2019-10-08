@@ -25,7 +25,7 @@ TEST_CASE("BitMap should", "[BitMap]")
 
     SECTION("make_bitmap")
     {
-        const std::array<uint8_t, GetSize<uint8_t, 5, 5>::value> bitmap = make_bitmap<5, 5>(
+        const std::array<uint8_t, details::GetSize<uint8_t, 5, 5>::value> bitmap = make_bitmap<5, 5>(
             0, 1, 0, 1, 0,
             0, 1, 0, 1, 0,
             0, 0, 0, 0, 0,

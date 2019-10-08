@@ -19,12 +19,36 @@ namespace msgui
 
 TEST_CASE("Image should", "[Image]")
 {
-    stubs::DriverForTest driver;
-    using FactoryType = Factory<decltype(driver), policies::data::DefaultMemoryPolicy<uint8_t>, policies::chunk::ChunkPolicy, policies::chunk::SSD1308ChunkPolicyParameters>;
-    FactoryType factory(driver);
-
     SECTION("Image should get correct chunks for small image")
     {
+        stubs::DriverForTest driver;
+        using FactoryType = Factory<decltype(driver), policies::data::DefaultMemoryPolicy<uint8_t>, policies::chunk::ChunkPolicy, policies::chunk::SSD1308ChunkPolicyParameters>;
+        FactoryType factory(driver);
+
+        const auto bitmap = factory.make_bitmap<3, 3>(
+            1, 0, 1,
+            0, 1, 0,
+            1, 0, 1
+        );
+
+        const auto image = factory.make_image(Position{0, 0}, bitmap);
+        REQUIRE(image.getChunk(0, 0)   == 0b00000101);
+        REQUIRE(image.getChunk(0, 1)   == 0b00000010);
+        REQUIRE(image.getChunk(0, 2)   == 0b00000001);
+        REQUIRE(image.getChunk(1, 0)   == 0b00000010);
+        REQUIRE(image.getChunk(1, 1)   == 0b00000001);
+        REQUIRE(image.getChunk(1, 2)   == 0b00000000);
+        REQUIRE(image.getChunk(2, 0)   == 0b00000101);
+        REQUIRE(image.getChunk(2, 1)   == 0b00000010);
+        REQUIRE(image.getChunk(2, 2)   == 0b00000001);
+    }
+
+    SECTION("Image with offset should return correct chunks")
+    {
+        stubs::DriverForTest driver;
+        using FactoryType = Factory<decltype(driver), policies::data::DefaultMemoryPolicy<uint8_t>, policies::chunk::ChunkPolicy, policies::chunk::SSD1308ChunkPolicyParameters>;
+        FactoryType factory(driver);
+
         const auto bitmap = factory.make_bitmap<3, 3>(
             1, 0, 1,
             0, 1, 0,

@@ -28,12 +28,12 @@ public:
         const int x_pos = x - this->position_.x;
         int y_pos = y - this->position_.y;
 
-        if (x_pos < 0)
+        if (x_pos <= -1 * BitMapType::Chunk::width || x_pos > bitmap_.width())
         {
             return 0;
         }
 
-        if (y_pos <= -8)
+        if (y_pos <= -1 * BitMapType::Chunk::height || y_pos > bitmap_.height())
         {
             return 0;
         }
@@ -43,11 +43,6 @@ public:
 
         typename BitMapType::ChunkType chunk = bitmap_.getChunk(x_pos, y_pos);
         return chunk << offset;
-    }
-
-    void draw() const override
-    {
-
     }
 
 private:

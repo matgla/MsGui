@@ -3,7 +3,7 @@
 #include "msgui/BitMapHelpers.hpp"
 
 #include "msgui/policies/chunk/SSD1308ChunkPolicy.hpp"
-
+#include "msgui/details/SizeCalculator.hpp"
 namespace msgui
 {
 
@@ -11,7 +11,7 @@ template <int Width, int Height, typename MemoryPolicy, template<typename, typen
 class BitMap
 {
 public:
-    using DataType = std::array<uint8_t, GetSize<uint8_t, Width, Height>::value>;
+    using DataType = std::array<uint8_t, details::GetSize<uint8_t, Width, Height>::value>;
     using ChunkPolicyType = ChunkPolicy<msgui::policies::chunk::ChunkPolicyConfig<MemoryPolicy, Width, Height>, ChunkParameters>;
     using ChunkType = typename ChunkParameters::ChunkType;
     using Chunk = ChunkParameters;

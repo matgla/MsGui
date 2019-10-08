@@ -34,10 +34,6 @@ public:
         this->process(Press{});
     }
 
-    void draw() const override
-    {
-    }
-
     typename ChunkParameters::ChunkType getChunk(int x, int y) const
     {
         UNUSED2(x, y);

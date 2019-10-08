@@ -11,3 +11,8 @@ add_subdirectory(src)
 if (BUILD_TESTS)
     add_subdirectory(test)
 endif (BUILD_TESTS)
+
+if (BUILD_DOCUMENTATION)
+    set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/cmake/Modules")
+    add_subdirectory(docs)
+endif ()

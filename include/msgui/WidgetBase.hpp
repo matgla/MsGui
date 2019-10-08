@@ -2,7 +2,6 @@
 
 #include <eul/event_loop.hpp>
 
-#include "msgui/IWidget.hpp"
 #include "msgui/Position.hpp"
 
 
@@ -10,7 +9,7 @@ namespace msgui
 {
 
 template<typename Events, typename GraphicDriverType>
-class WidgetBase : public IWidget
+class WidgetBase
 {
 private:
     using EventLoop = eul::event_loop<Events>;
@@ -26,27 +25,27 @@ public:
     {
     }
 
-    virtual void show() final
+    void show()
     {
         visible_ = true;
     }
 
-    virtual void hide() final
+    void hide()
     {
         visible_ = false;
     }
 
-    virtual void active() final
+    void active()
     {
         active_ = true;
     }
 
-    virtual void inactive() final
+    void inactive()
     {
         active_ = false;
     }
 
-    virtual void move(Position position)
+    void move(Position position)
     {
         position_ = position;
     }

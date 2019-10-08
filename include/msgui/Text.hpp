@@ -8,7 +8,7 @@
 #include "msgui/Image.hpp"
 #include "msgui/BitMap.hpp"
 
-// #include <board.hpp>
+#include <iostream>
 
 namespace msgui
 {
@@ -48,7 +48,7 @@ public:
 
         const int y_pos = y - this->position_.y;
 
-        if (y_pos < 0)
+        if (y_pos <= -8)
         {
             return 0;
         }
@@ -63,9 +63,7 @@ public:
 
         const auto letter_position_x = letter_index * (font_.width() + 1);
         Image<GraphicDriverType, typename std::decay<decltype(bitmap)>::type> image(Position{letter_position_x, this->position_.y}, driver_, bitmap);
-        auto byte = image.getChunk(x_pos, y_pos);
-
-        return byte;
+        return image.getChunk(x_pos, y);
     }
 
     void print(std::string_view text) const
@@ -83,7 +81,7 @@ public:
         return driver_.width() - this->position_.x;
     }
 
-    virtual void draw() const override
+    void draw() const
     {
         if (static_cast<int>(text_.size()) * (font_.width() + 1) <= widthToEnd())
         {

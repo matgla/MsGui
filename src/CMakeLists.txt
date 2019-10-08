@@ -9,7 +9,6 @@ set (production_includes
     ${INCLUDES_DIR}/msgui/Font.hpp
     ${INCLUDES_DIR}/msgui/fonts/Font5x7.hpp
     ${INCLUDES_DIR}/msgui/Gui.hpp
-    ${INCLUDES_DIR}/msgui/IWidget.hpp
     ${INCLUDES_DIR}/msgui/primitives/IShape.hpp
     ${INCLUDES_DIR}/msgui/primitives/Line.hpp
     ${INCLUDES_DIR}/msgui/primitives/Rectangle.hpp

@@ -28,45 +28,45 @@ public:
     {
     }
 
-    void draw(const msgui::Color& color) override
-    {
-        UNUSED1(color);
-        // Bresenham algorithm
-        if (start_.x > end_.x)
-        {
-            std::swap(start_, end_);
-        }
+    // void draw(const msgui::Color& color) override
+    // {
+    //     UNUSED1(color);
+    //     // Bresenham algorithm
+    //     if (start_.x > end_.x)
+    //     {
+    //         std::swap(start_, end_);
+    //     }
 
-        if (start_.x == end_.x)
-        {
-            if (start_.y > end_.y)
-            {
-                std::swap(start_, end_);
-            }
-            for (int y = start_.y; y <= end_.y; ++y)
-            {
-                // driver_.setPixel(start_.x, y);
-            }
-        }
-        else
-        {
-            int deltaX   = end_.x - start_.x;
-            int deltaY   = end_.y - start_.y;
-            int deltaErr = 2 * deltaY - deltaX;
-            int y        = start_.y;
+    //     if (start_.x == end_.x)
+    //     {
+    //         if (start_.y > end_.y)
+    //         {
+    //             std::swap(start_, end_);
+    //         }
+    //         for (int y = start_.y; y <= end_.y; ++y)
+    //         {
+    //             // driver_.setPixel(start_.x, y);
+    //         }
+    //     }
+    //     else
+    //     {
+    //         int deltaX   = end_.x - start_.x;
+    //         int deltaY   = end_.y - start_.y;
+    //         int deltaErr = 2 * deltaY - deltaX;
+    //         int y        = start_.y;
 
-            for (int x = start_.x; x < end_.x; ++x)
-            {
-                // driver_.setPixel(x, y);
-                if (deltaErr > 0)
-                {
-                    y = y + 1;
-                    deltaErr -= 2 * deltaX;
-                }
-                deltaErr = deltaErr + 2 * deltaY;
-            }
-        }
-    }
+    //         for (int x = start_.x; x < end_.x; ++x)
+    //         {
+    //             // driver_.setPixel(x, y);
+    //             if (deltaErr > 0)
+    //             {
+    //                 y = y + 1;
+    //                 deltaErr -= 2 * deltaX;
+    //             }
+    //             deltaErr = deltaErr + 2 * deltaY;
+    //         }
+    //     }
+    // }
 
 private:
     GraphicDriverType& driver_;
