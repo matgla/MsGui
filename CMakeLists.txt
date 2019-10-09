@@ -9,6 +9,7 @@ set(MS_GUI_VERSION "${MS_GUI_VERSION_MAJOR} ${MS_GUI_VERSION_MAJOR}")
 add_subdirectory(lib)
 add_subdirectory(src)
 if (BUILD_TESTS)
+    include(CTest)
     add_subdirectory(test)
 endif (BUILD_TESTS)
 

@@ -28,6 +28,12 @@ if (ASAN_ENABLED)
     set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address")
 endif (ASAN_ENABLED)
 
-add_executable(msgui_tests ${test_sources})
-target_link_libraries(msgui_tests msgui)
-enable_testing()
+add_executable(msgui_ut ${test_sources})
+target_link_libraries(msgui_ut msgui)
+add_test(msgui_build_ut
+         "${CMAKE_COMMAND}" --build ${CMAKE_BINARY_DIR} --target msgui_ut)
+
+
+add_test(NAME msgui_tests COMMAND msgui_ut)
+set_tests_properties(msgui_tests
+    PROPERTIES DEPENDS msgui_build_ut)

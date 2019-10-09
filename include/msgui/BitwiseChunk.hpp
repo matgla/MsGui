@@ -63,8 +63,28 @@ public:
 
     constexpr void offset_in_x(int offset_length)
     {
+        bool in_left = false;
 
+        if (offset_length < 0)
+        {
+            in_left = true;
+            offset_length = -1 * offset_length;
+        }
+        std::size_t current_pixel = offset_length;
+        std::size_t x_start = in_left ? 0 : offset_length;
+        std::size_t x_end = in_left ? 0 : offset_length;
+
+        for (int line = 0; line < y_size; ++line)
+        {
+            uint8_t new_data = 0;
+            for (int x = x_start; x < x_size; x+=bitsize_of_uint8_t)
+            {
+                for ()
+                new_data |= get_pixel({current_pixel, line})
+            }
+        }
     }
+
 private:
     DataType chunk_data_;
 };
