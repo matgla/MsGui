@@ -43,21 +43,21 @@ public:
 
         if (x_pos < 0)
         {
-            return 0;
+            return {};
         }
 
         const int y_pos = y - this->position_.y;
 
         if (y_pos <= -8)
         {
-            return 0;
+            return {};
         }
 
         int letter_index = x_pos / (font_.width() + 1);
 
         if (static_cast<std::size_t>(letter_index) >= text_.size())
         {
-            return 0;
+            return {};
         }
         const auto& bitmap = font_.get(text_[letter_index]);
 

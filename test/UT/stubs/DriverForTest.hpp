@@ -41,7 +41,12 @@ public:
     template <typename ChunkType>
     void write(const ChunkType data)
     {
-        buffer_.push_back(data);
+        uint8_t byte = 0;
+        for (int i = 0; i < 8; i++)
+        {
+            byte |= data.get_pixel(msgui::Position{0, i}) << i;
+        }
+        buffer_.push_back(byte);
     }
 
     std::vector<uint8_t> buffer_;

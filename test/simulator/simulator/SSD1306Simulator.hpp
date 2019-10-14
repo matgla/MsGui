@@ -73,7 +73,7 @@ public:
                 const auto& data = buffer_[y][x];
                 for (int bit = 0; bit < chunk_height; ++bit)
                 {
-                    if ((data >> bit) & 0x1)
+                    if (data.get_pixel(msgui::Position{0, bit}))
                     {
                         image.set_pixel(x, y * chunk_height + bit, 255, 255, 255);
                     }

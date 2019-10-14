@@ -30,19 +30,20 @@ public:
 
         if (x_pos <= -1 * BitMapType::Chunk::width || x_pos > bitmap_.width())
         {
-            return 0;
+            return {};
         }
 
         if (y_pos <= -1 * BitMapType::Chunk::height || y_pos > bitmap_.height())
         {
-            return 0;
+            return {};
         }
 
-        int offset = y_pos < 0 ? 0 - y_pos : 0;
+        int offset = y_pos;
         if (y_pos < 0) y_pos = 0;
 
         typename BitMapType::ChunkType chunk = bitmap_.getChunk(x_pos, y_pos);
-        return chunk << offset;
+        chunk.offset_in_x(offset);
+        return chunk;
     }
 
 private:

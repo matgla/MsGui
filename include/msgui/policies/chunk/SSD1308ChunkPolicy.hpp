@@ -5,6 +5,7 @@
 #include <eul/utils/unused.hpp>
 
 #include "msgui/details/SizeCalculator.hpp"
+#include "msgui/BitwiseChunk.hpp"
 
 namespace msgui
 {
@@ -42,9 +43,9 @@ struct ChunkPolicyConfig
 
 struct SSD1308ChunkPolicyParameters
 {
-    using ChunkType = uint8_t;
     constexpr static int height = 8;
     constexpr static int width = 1;
+    using ChunkType = BitwiseChunk<width, height>;
 };
 
 template <typename Config, typename Parameters>
@@ -57,12 +58,12 @@ private:
 
 public:
     template <typename DataType>
-    constexpr static typename Parameters::ChunkType getChunk(const DataType& data, const int line, const int column)
+    constexpr static SSD1308ChunkPolicyParameters::ChunkType getChunk(const DataType& data, const int line, const int column)
     {
         int x = column;
         if (x >= Config::image_width)
         {
-            return 0;
+            return {};
         }
 
         uint8_t byte = 0;
@@ -87,7 +88,25 @@ public:
             byte |= (bit << (Parameters::height - 1 - i ));//- (line % Parameters::height)));
         }
 
-        return reverse(byte);
+        uint8_t reversed = reverse(byte);
+        typename SSD1308ChunkPolicyParameters::ChunkType chunk;
+        if (reversed & 0x01)
+        chunk.set_pixel(Position{0, 0});
+        if (reversed & 0x02)
+        chunk.set_pixel(Position{0, 1});
+        if (reversed & 0x04)
+        chunk.set_pixel(Position{0, 2});
+        if (reversed & 0x08)
+        chunk.set_pixel(Position{0, 3});
+        if (reversed & 0x10)
+        chunk.set_pixel(Position{0, 4});
+        if (reversed & 0x20)
+        chunk.set_pixel(Position{0, 5});
+        if (reversed & 0x40)
+        chunk.set_pixel(Position{0, 6});
+        if (reversed & 0x80)
+        chunk.set_pixel(Position{0, 7});
+        return chunk;
     }
 
     template <size_t N, typename... Args>

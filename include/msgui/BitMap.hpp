@@ -56,11 +56,6 @@ public:
         }
     }
 
-    constexpr uint8_t getByte(const int x) const
-    {
-        return ChunkPolicyType::getChunk(data_, 0, x);
-    }
-
     constexpr typename ChunkParameters::ChunkType getChunk(const int x, const int y) const
     {
         return ChunkPolicyType::getChunk(data_, y, x);

@@ -121,7 +121,7 @@ public:
 
     void draw() const
     {
-        typename ChunkParameters::ChunkType chunk = 0;
+        typename ChunkParameters::ChunkType chunk;
         for (uint32_t y = 0; y < driver_.height(); y += ChunkParameters::height)
         {
             for (uint32_t x = 0; x < driver_.width(); x += ChunkParameters::width)
@@ -131,7 +131,7 @@ public:
                     chunk |= child.getChunk(x, y);
                 });
                 driver_.write(chunk);
-                chunk = 0;
+                chunk = {};
             }
         }
     }
