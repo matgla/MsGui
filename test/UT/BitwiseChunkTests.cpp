@@ -343,6 +343,90 @@ TEST_CASE("BitwiseChunk should", "[BitwiseChunk]")
             }
         }
     }
+    SECTION("Sum 2 chunks")
+    {
+        BitwiseChunk<5, 5> chunk1;
+        BitwiseChunk<5, 5> chunk2;
+
+        /**************
+         *  | 0 1 2 3 4          | 0 1 2 3 4          | 0 1 2 3 4
+         * ------------         ------------         ------------
+         * 0| 1 1 0 1 1         0| 0 0 0 0 0         0| 1 1 0 1 1
+         * 1| 1 0 0 0 1         1| 0 0 1 0 0         1| 1 0 1 0 1
+         * 2| 0 0 0 0 0    +    2| 0 1 0 1 0         2| 0 1 0 1 0
+         * 3| 1 0 0 0 1         3| 0 0 1 0 0         3| 1 0 1 0 1
+         * 4| 1 1 0 1 1         4| 0 0 0 0 0         4| 1 1 0 1 1
+         ***************/
+
+        const std::vector<Position> chunk_1_pixels = {
+            {0, 1},
+            {0, 2},
+            {0, 3},
+            {0, 4},
+            {1, 0},
+            {1, 4},
+            {3, 0},
+            {3, 4},
+            {4, 0},
+            {4, 1},
+            {4, 3},
+            {4, 4}
+        };
+
+        const std::vector<Position> chunk_2_pixels = {
+            {1, 2},
+            {2, 1},
+            {2, 3},
+            {3, 2}
+        };
+
+        const std::vector<Position> expected_sum = {
+            {0, 1},
+            {0, 2},
+            {0, 3},
+            {0, 4},
+            {1, 0},
+            {1, 4},
+            {3, 0},
+            {3, 4},
+            {4, 0},
+            {4, 1},
+            {4, 3},
+            {4, 4},
+            {1, 2},
+            {2, 1},
+            {2, 3},
+            {3, 2}
+        };
+
+
+        for (const auto& pos : chunk_1_pixels)
+        {
+            chunk1.set_pixel(pos);
+        }
+
+        for (const auto& pos : chunk_2_pixels)
+        {
+            chunk2.set_pixel(pos);
+        }
+
+        chunk1 |= chunk2;
+
+        for (std::size_t y = 0; y < chunk1.height(); ++y)
+        {
+            for (std::size_t x = 0; x < chunk1.width(); ++x)
+            {
+                const Position position{static_cast<int>(x), static_cast<int>(y)};
+                if (std::find(expected_sum.begin(),
+                                expected_sum.end(), position) != expected_sum.end())
+                {
+                    REQUIRE(chunk1.get_pixel(position) == 1);
+                    continue;
+                }
+                REQUIRE(chunk1.get_pixel(position) == 0);
+            }
+        }
+    }
 }
 
 } // namespace msgui

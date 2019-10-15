@@ -9,8 +9,6 @@
 #include "msgui/WidgetBase.hpp"
 #include "primitives/Rectangle.hpp"
 
-#include <iostream>
-
 namespace msgui
 {
 

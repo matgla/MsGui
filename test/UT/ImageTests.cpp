@@ -32,16 +32,16 @@ TEST_CASE("Image should", "[Image]")
         );
 
         const auto image = factory.make_image(Position{0, 0}, bitmap);
-        (void)image;
-        // REQUIRE(image.getChunk(0, 0)   == 0b00000101);
-        // REQUIRE(image.getChunk(0, 1)   == 0b00000010);
-        // REQUIRE(image.getChunk(0, 2)   == 0b00000001);
-        // REQUIRE(image.getChunk(1, 0)   == 0b00000010);
-        // REQUIRE(image.getChunk(1, 1)   == 0b00000001);
-        // REQUIRE(image.getChunk(1, 2)   == 0b00000000);
-        // REQUIRE(image.getChunk(2, 0)   == 0b00000101);
-        // REQUIRE(image.getChunk(2, 1)   == 0b00000010);
-        // REQUIRE(image.getChunk(2, 2)   == 0b00000001);
+        using ChunkType = decltype(bitmap)::ChunkType;
+        REQUIRE(image.getChunk(0, 0) == ChunkType{{1},{0},{1},{0},{0},{0},{0},{0}});
+        REQUIRE(image.getChunk(0, 1) == ChunkType{{0},{1},{0},{0},{0},{0},{0},{0}});
+        REQUIRE(image.getChunk(0, 2) == ChunkType{{1},{0},{0},{0},{0},{0},{0},{0}});
+        REQUIRE(image.getChunk(1, 0) == ChunkType{{0},{1},{0},{0},{0},{0},{0},{0}});
+        REQUIRE(image.getChunk(1, 1) == ChunkType{{1},{0},{0},{0},{0},{0},{0},{0}});
+        REQUIRE(image.getChunk(1, 2) == ChunkType{{0},{0},{0},{0},{0},{0},{0},{0}});
+        REQUIRE(image.getChunk(2, 0) == ChunkType{{1},{0},{1},{0},{0},{0},{0},{0}});
+        REQUIRE(image.getChunk(2, 1) == ChunkType{{0},{1},{0},{0},{0},{0},{0},{0}});
+        REQUIRE(image.getChunk(2, 2) == ChunkType{{1},{0},{0},{0},{0},{0},{0},{0}});
     }
 
     SECTION("Image with offset should return correct chunks")
@@ -57,15 +57,16 @@ TEST_CASE("Image should", "[Image]")
         );
 
         const auto image = factory.make_image(Position{10, 10}, bitmap);
-        (void)image;
+        using ChunkType = decltype(bitmap)::ChunkType;
 
-        // REQUIRE(image.getChunk(0, 0)   == 0b00000000);
-        // REQUIRE(image.getChunk(8, 10)  == 0b00000000);
-        // REQUIRE(image.getChunk(9, 10)  == 0b00000000);
-        // REQUIRE(image.getChunk(10, 10) == 0b00000101);
-        // REQUIRE(image.getChunk(11, 10) == 0b00000010);
-        // REQUIRE(image.getChunk(11, 9)  == 0b00000100);
-        // REQUIRE(image.getChunk(11, 8)  == 0b00001000);
+        REQUIRE(image.getChunk(0, 0)   == ChunkType{{0},{0},{0},{0},{0},{0},{0},{0}});
+        REQUIRE(image.getChunk(8, 10)  == ChunkType{{0},{0},{0},{0},{0},{0},{0},{0}});
+        REQUIRE(image.getChunk(9, 10)  == ChunkType{{0},{0},{0},{0},{0},{0},{0},{0}});
+        REQUIRE(image.getChunk(10, 10) == ChunkType{{1},{0},{1},{0},{0},{0},{0},{0}});
+        REQUIRE(image.getChunk(11, 10) == ChunkType{{0},{1},{0},{0},{0},{0},{0},{0}});
+        REQUIRE(image.getChunk(11, 9)  == ChunkType{{0},{0},{1},{0},{0},{0},{0},{0}});
+        REQUIRE(image.getChunk(11, 8)  == ChunkType{{0},{0},{0},{1},{0},{0},{0},{0}});
+        REQUIRE(image.getChunk(11, 11)  == ChunkType{{1},{0},{0},{0},{0},{0},{0},{0}});
     }
 }
 

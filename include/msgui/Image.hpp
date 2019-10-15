@@ -6,8 +6,6 @@
 #include <msgui/WidgetBase.hpp>
 #include <msgui/Position.hpp>
 
-#include <iostream>
-
 namespace msgui
 {
 
@@ -25,24 +23,36 @@ public:
 
     constexpr typename BitMapType::ChunkType getChunk(const int x, const int y) const
     {
-        const int x_pos = x - this->position_.x;
+        int x_pos = x - this->position_.x;
         int y_pos = y - this->position_.y;
+        int x_offset = 0;
+        int y_offset = 0;
 
-        if (x_pos <= -1 * BitMapType::Chunk::width || x_pos > bitmap_.width())
+        if (x_pos < 0)
         {
-            return {};
+            x_offset = -1 * x_pos;
+            x_pos = 0;
         }
 
-        if (y_pos <= -1 * BitMapType::Chunk::height || y_pos > bitmap_.height())
+        if (y_pos < 0)
         {
-            return {};
+            y_offset = -1 * y_pos;
+            y_pos = 0;
         }
 
-        int offset = y_pos;
-        if (y_pos < 0) y_pos = 0;
+        if (x_pos >= bitmap_.width())
+        {
+            x_offset = x_pos - bitmap_.width();
+        }
+
+        if (y_pos >= bitmap_.height())
+        {
+            y_offset = y_pos - bitmap_.height();
+        }
 
         typename BitMapType::ChunkType chunk = bitmap_.getChunk(x_pos, y_pos);
-        chunk.offset_in_x(offset);
+        chunk.offset_in_y(y_offset);
+        chunk.offset_in_x(x_offset);
         return chunk;
     }
 

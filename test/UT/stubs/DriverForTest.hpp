@@ -7,6 +7,8 @@
 
 #include <eul/utils/unused.hpp>
 
+#include <iostream>
+
 namespace msgui
 {
 namespace stubs
@@ -39,12 +41,12 @@ public:
     }
 
     template <typename ChunkType>
-    void write(const ChunkType data)
+    void write(const ChunkType& data)
     {
         uint8_t byte = 0;
         for (int i = 0; i < 8; i++)
         {
-            byte |= data.get_pixel(msgui::Position{0, i}) << i;
+            byte |= (data.get_pixel(msgui::Position{0, i}) << i);
         }
         buffer_.push_back(byte);
     }

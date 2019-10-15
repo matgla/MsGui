@@ -20,13 +20,6 @@ TEST_CASE("Window should", "[Window]")
     using FactoryType = Factory<decltype(driver), policies::data::DefaultMemoryPolicy<uint8_t>, policies::chunk::ChunkPolicy, policies::chunk::SSD1308ChunkPolicyParameters>;
     FactoryType factory(driver);
 
-    SECTION("Construct window")
-    {
-        auto button = factory.make_button();
-        auto window = factory.configure_window().make(button);
-        UNUSED1(window);
-    }
-
     SECTION("Draw via chunks")
     {
         auto bitmap = factory.make_bitmap<10, 3>(
