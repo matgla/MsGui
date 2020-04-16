@@ -128,7 +128,7 @@ public:
                 {
                     chunk |= child.getChunk(x, y);
                 });
-                driver_.write(chunk);
+                driver_.write(chunk.get_byte());
                 chunk = {};
             }
         }

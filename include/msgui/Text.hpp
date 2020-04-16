@@ -8,8 +8,6 @@
 #include "msgui/Image.hpp"
 #include "msgui/BitMap.hpp"
 
-#include <iostream>
-
 namespace msgui
 {
 

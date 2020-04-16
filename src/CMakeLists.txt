@@ -21,15 +21,22 @@ set (sources
     ${production_sources}
 )
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unused-result -std=c++1z -Wall -Wextra -fconcepts")
+add_library(msgui STATIC)
+target_sources(msgui
+    PRIVATE
+        ${sources})
 
-if (DEBUG)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Og")
-else (DEBUG)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
-endif (DEBUG)
+target_compile_options(msgui
+    PRIVATE
+        $<$<COMPILE_LANGUAGE:CXX>:${msgui_cxx_compilation_flags} -fconcepts -Wall -Wextra -Wpedantic -Wconversion -Wcast-align -Wunused -Wshadow -Wold-style-cast -Wpointer-arith -Wcast-qual -Wno-missing-braces>
+        $<$<CONFIG:DEBUG>:-Og -g>
+        $<$<CONFIG:RELEASE>:-Os>
+)
 
-add_library(msgui INTERFACE)
-target_sources(msgui INTERFACE ${sources})
-target_link_libraries(msgui INTERFACE eul)
-target_include_directories(msgui INTERFACE ${PROJECT_SOURCE_DIR}/include)
+target_link_options(msgui
+    PRIVATE
+        ${msgui_linking_flags}
+)
+
+target_link_libraries(msgui PUBLIC eul)
+target_include_directories(msgui PUBLIC ${PROJECT_SOURCE_DIR}/include)
