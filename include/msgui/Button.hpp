@@ -12,7 +12,7 @@ class Press
 {
 };
 
-template <std::size_t CallbackSize, typename GraphicDriverType, template <typename, typename> typename ChunkType, typename ChunkParameters>
+template <std::size_t CallbackSize, typename GraphicDriverType>
 class Button : public WidgetBase<eul::events<CallbackSize, Press>, GraphicDriverType>
 {
     using CallbackType = typename eul::event_loop<eul::events<CallbackSize, Press>>::template callback_type<Press>;
@@ -32,12 +32,6 @@ public:
     void press()
     {
         this->process(Press{});
-    }
-
-    typename ChunkParameters::ChunkType getChunk(int x, int y) const
-    {
-        UNUSED2(x, y);
-        return {};
     }
 
     eul::function<void(), CallbackSize> callback_;

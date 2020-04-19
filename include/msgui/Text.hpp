@@ -11,7 +11,7 @@
 namespace msgui
 {
 
-template <std::size_t CallbackSize, typename FontType, typename GraphicDriverType, template<typename, typename> typename ChunkPolicy, typename ChunkParameters>
+template <std::size_t CallbackSize, typename FontType, typename GraphicDriverType>
 class Text : public WidgetBase<eul::events<16>, GraphicDriverType>
 {
 public:
@@ -27,51 +27,30 @@ public:
     void drawChar(Position pos, char c) const
     {
         const auto& letterBitMap = font_.get(c);
-        for (int x = 0; x < letterBitMap.width(); ++x)
+        for (int y = 0; y < letterBitMap.height(); ++y)
         {
-            const uint8_t byte = letterBitMap.getByte(x);
-            driver_.write(byte);
+            for (int x = 0; x < letterBitMap.height(); ++x)
+            {
+                bool enable = letterBitMap.getPixel(x, y);
+                if (enable)
+                {
+                    driver_.set_pixel(x + pos.x, y + pos.y);
+                }
+            }
         }
-        driver_.write(0x00);
-    }
-
-    constexpr typename ChunkParameters::ChunkType getChunk(int x, int y) const
-    {
-        const int x_pos = x - this->position_.x;
-
-        if (x_pos < 0)
-        {
-            return {};
-        }
-
-        const int y_pos = y - this->position_.y;
-
-        if (y_pos <= -8)
-        {
-            return {};
-        }
-
-        int letter_index = x_pos / (font_.width() + 1);
-
-        if (static_cast<std::size_t>(letter_index) >= text_.size())
-        {
-            return {};
-        }
-        const auto& bitmap = font_.get(text_[letter_index]);
-
-        const auto letter_position_x = letter_index * (font_.width() + 1);
-        Image<GraphicDriverType, typename std::decay<decltype(bitmap)>::type> image(Position{letter_position_x, this->position_.y}, driver_, bitmap);
-        return image.getChunk(x_pos, y);
     }
 
     void print(std::string_view text) const
     {
-        static_cast<void>(text);
-        // for (const auto& letter : text)
-        // {
-            // drawChar(pos, letter);
-            // pos.x += font_.width() + 1;
-        // }
+        if (this->visible_)
+        {
+            Position pos = this->position_;
+            for (const auto& letter : text)
+            {
+                drawChar(pos, letter);
+                pos.x += font_.width() + 1;
+            }
+        }
     }
 
     int widthToEnd() const

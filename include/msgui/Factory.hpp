@@ -12,7 +12,7 @@ namespace msgui
 {
 
 
-template <typename GraphicDriverType, typename MemoryPolicy, template<typename, typename> typename ChunkPolicy, typename ChunkParameters>
+template <typename GraphicDriverType>
 class Factory
 {
 public:
@@ -23,24 +23,24 @@ public:
     template <std::size_t CallbackSize = 0>
     constexpr auto make_button(const Position& position = {0, 0})
     {
-        return Button<CallbackSize, GraphicDriverType, ChunkPolicy, ChunkParameters>(position, driver_);
+        return Button<CallbackSize, GraphicDriverType>(position, driver_);
     }
 
-    constexpr WindowConfig<GraphicDriverType, MemoryPolicy, ChunkPolicy, ChunkParameters> configure_window()
+    constexpr WindowConfig<GraphicDriverType> configure_window()
     {
-        return WindowConfig<GraphicDriverType, MemoryPolicy, ChunkPolicy, ChunkParameters>(driver_);
+        return WindowConfig<GraphicDriverType>(driver_);
     }
 
     template <typename FontType, std::size_t CallbackSize = 0>
     constexpr auto make_text(const std::string_view& text, const FontType& font, const Position& position = {0, 0}, const Color& color = colors::black())
     {
-        return Text<CallbackSize, FontType, GraphicDriverType, ChunkPolicy, ChunkParameters>(driver_, text.data(), position, font, color);
+        return Text<CallbackSize, FontType, GraphicDriverType>(driver_, text.data(), position, font, color);
     }
 
     template <int Width, int Height, typename... Data>
     constexpr auto make_bitmap(Data&&... data) const
     {
-        return BitMap<Width, Height, MemoryPolicy, ChunkPolicy, ChunkParameters>(std::forward<Data>(data)...);
+        return BitMap<Width, Height>(std::forward<Data>(data)...);
     }
 
     template <typename BitMapType>
@@ -49,10 +49,10 @@ public:
         return Image<GraphicDriverType, BitMapType>(pos, driver_, bitmap);
     }
 
-    template <template <typename, template<typename, typename> typename, typename> typename FontType>
+    template <typename FontType>
     constexpr auto make_font()
     {
-        return FontType<MemoryPolicy, ChunkPolicy, ChunkParameters>::createFont();
+        return FontType::createFont();
     }
 
     GraphicDriverType& driver_;

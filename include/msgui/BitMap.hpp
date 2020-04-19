@@ -7,17 +7,14 @@
 namespace msgui
 {
 
-template <int Width, int Height, typename MemoryPolicy, template<typename, typename> typename ChunkPolicy, typename ChunkParameters>
+template <int Width, int Height>
 class BitMap
 {
 public:
     using DataType = std::array<uint8_t, details::GetSize<uint8_t, Width, Height>::value>;
-    using ChunkPolicyType = ChunkPolicy<msgui::policies::chunk::ChunkPolicyConfig<MemoryPolicy, Width, Height>, ChunkParameters>;
-    using ChunkType = typename ChunkParameters::ChunkType;
-    using Chunk = ChunkParameters;
     template <typename... Data>
     constexpr BitMap(Data&&... data)
-        : data_(ChunkPolicyType::make_bitmap(std::forward<Data>(data)...))
+        : data_(make_bitmap<Width, Height>(data...))
     {
     }
 
@@ -54,11 +51,6 @@ public:
         {
             data_[index] &= (enable << (BITS_IN_BYTE - 1 - (bytesFromStart % BITS_IN_BYTE)));
         }
-    }
-
-    constexpr typename ChunkParameters::ChunkType getChunk(const int x, const int y) const
-    {
-        return ChunkPolicyType::getChunk(data_, y, x);
     }
 
     void pixelOn(const int x, const int y)

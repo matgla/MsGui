@@ -3,7 +3,6 @@
 #include "msgui/Font.hpp"
 
 #include <msgui/policies/chunk/SSD1308ChunkPolicy.hpp>
-#include <msgui/policies/data/DefaultMemoryPolicy.hpp>
 
 namespace msgui
 {
@@ -11,7 +10,6 @@ namespace fonts
 {
 
 
-template <typename MemoryPolicy, template<typename, typename> typename ChunkPolicy, typename ChunkParameters>
 class Font5x7
 {
 public:
@@ -20,9 +18,9 @@ public:
     constexpr static int numberOfCharacters          = 96;
     constexpr static int firstAsciiCharacterPosition = 31;
 
-    using CharType = msgui::BitMap<5, 7, MemoryPolicy, ChunkPolicy, ChunkParameters>;
+    using CharType = msgui::BitMap<5, 7>;
     using FontType = msgui::Font<
-        width, height, numberOfCharacters, firstAsciiCharacterPosition, MemoryPolicy, ChunkPolicy, ChunkParameters>;
+        width, height, numberOfCharacters, firstAsciiCharacterPosition>;
 
     constexpr static FontType createFont()
     {
