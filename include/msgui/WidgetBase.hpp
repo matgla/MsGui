@@ -8,7 +8,7 @@
 namespace msgui
 {
 
-template<typename Events, typename GraphicDriverType>
+template<typename Events>
 class WidgetBase
 {
 private:
@@ -20,8 +20,8 @@ private:
 
 public:
 
-    WidgetBase(const Position& position, GraphicDriverType& driver)
-        : visible_(true), active_(false), position_(position), driver_(driver)
+    WidgetBase(const Position& position)
+        : visible_(true), active_(false), position_(position)
     {
     }
 
@@ -45,9 +45,19 @@ public:
         active_ = false;
     }
 
-    void move(Position position)
+    void set_position(Position position)
     {
         position_ = position;
+    }
+
+    Position get_position() const
+    {
+        return position_;
+    }
+
+    void move(Position position)
+    {
+        position_ = {position_.x + position.x, position_.y + position.y};
     }
 
     template <typename Event>
@@ -70,6 +80,5 @@ protected:
     bool active_;
     Position position_;
     EventLoop eventLoop_;
-    GraphicDriverType& driver_;
 };
 } // namespace msgui

@@ -11,62 +11,65 @@
 namespace msgui
 {
 
-template <std::size_t CallbackSize, typename FontType, typename GraphicDriverType>
-class Text : public WidgetBase<eul::events<16>, GraphicDriverType>
+template <std::size_t CallbackSize, typename FontType>
+class Text : public WidgetBase<eul::events<16>>
 {
 public:
-    Text(GraphicDriverType& driver, const char* text, Position position, const FontType& font, const Color& color = colors::black())
-        : WidgetBase<eul::events<16>, GraphicDriverType>(position, driver),
-          driver_(driver),
+    Text(const char* text, Position position, const FontType& font, const Color& color = colors::black())
+        : WidgetBase<eul::events<16>>(position),
           text_(text),
           font_(font),
           color_(color)
     {
     }
 
-    void drawChar(Position pos, char c) const
+    template <typename DriverType>
+    void drawChar(Position pos, char c, DriverType& driver) const
     {
         const auto& letterBitMap = font_.get(c);
         for (int y = 0; y < letterBitMap.height(); ++y)
         {
-            for (int x = 0; x < letterBitMap.height(); ++x)
+            for (int x = 0; x < letterBitMap.width(); ++x)
             {
                 bool enable = letterBitMap.getPixel(x, y);
                 if (enable)
                 {
-                    driver_.set_pixel(x + pos.x, y + pos.y);
+                    driver.set_pixel(x + pos.x, y + pos.y);
                 }
             }
         }
     }
 
-    void print(std::string_view text) const
+    template <typename DriverType>
+    void print(std::string_view text, DriverType& driver) const
     {
         if (this->visible_)
         {
             Position pos = this->position_;
             for (const auto& letter : text)
             {
-                drawChar(pos, letter);
+                drawChar(pos, letter, driver);
                 pos.x += font_.width() + 1;
             }
         }
     }
 
-    int widthToEnd() const
+    template <typename DriverType>
+    int widthToEnd(DriverType& driver) const
     {
-        return driver_.width() - this->position_.x;
+        return driver.width() - this->position_.x;
     }
 
-    void draw() const
+    template <typename DriverType>
+    void draw(DriverType& driver) const
     {
-        if (static_cast<int>(text_.size()) * (font_.width() + 1) <= widthToEnd())
+        if (static_cast<int>(text_.size()) * (font_.width() + 1) <= widthToEnd(driver))
         {
-            print(text_);
+            print(text_, driver);
         }
         else
         {
-            print(text_.substr(0, widthToEnd() / font_.width()));
+            print(text_.substr(0, widthToEnd(driver) / font_.width()), driver);
         }
     }
 
@@ -81,7 +84,6 @@ public:
     }
 
 protected:
-    GraphicDriverType& driver_;
     std::string_view text_;
     const FontType& font_;
     msgui::Color color_;

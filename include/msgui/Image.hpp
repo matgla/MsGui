@@ -9,51 +9,38 @@
 namespace msgui
 {
 
-template <typename GraphicDriverType, typename BitMapType>
+template <typename BitMapType>
 class Image
-    : public WidgetBase<eul::events<16>, GraphicDriverType>
+    : public WidgetBase<eul::events<1>>
 {
 public:
-    constexpr Image(Position position, GraphicDriverType& driver, const BitMapType& bitmap)
-        : WidgetBase<eul::events<16>, GraphicDriverType>(position, driver)
+    constexpr Image(Position position, const BitMapType& bitmap)
+        : WidgetBase<eul::events<1>>(position)
         , bitmap_(bitmap)
     {
 
     }
 
-    constexpr typename BitMapType::ChunkType getChunk(const int x, const int y) const
+    const BitMapType& bitmap() const
     {
-        int x_pos = x - this->position_.x;
-        int y_pos = y - this->position_.y;
-        int x_offset = 0;
-        int y_offset = 0;
+        return bitmap_;
+    }
 
-        if (x_pos < 0)
+    template <typename DriverType>
+    void draw(DriverType& driver) const
+    {
+        Position pos = this->position_;
+
+        for (int y = 0; y < bitmap_.height(); ++y)
         {
-            x_offset = -1 * x_pos;
-            x_pos = 0;
+            for (int x = 0; x < bitmap_.width(); ++x)
+            {
+                if (bitmap_.getPixel(x, y))
+                {
+                    driver.set_pixel(x + pos.x, y + pos.y);
+                }
+            }
         }
-
-        if (y_pos < 0)
-        {
-            y_offset = -1 * y_pos;
-            y_pos = 0;
-        }
-
-        if (x_pos >= bitmap_.width())
-        {
-            x_offset = x_pos - bitmap_.width();
-        }
-
-        if (y_pos >= bitmap_.height())
-        {
-            y_offset = y_pos - bitmap_.height();
-        }
-
-        typename BitMapType::ChunkType chunk = bitmap_.getChunk(x_pos, y_pos);
-        chunk.offset_in_y(y_offset);
-        chunk.offset_in_x(x_offset);
-        return chunk;
     }
 
 private:

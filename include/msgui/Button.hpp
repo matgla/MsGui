@@ -12,14 +12,14 @@ class Press
 {
 };
 
-template <std::size_t CallbackSize, typename GraphicDriverType>
-class Button : public WidgetBase<eul::events<CallbackSize, Press>, GraphicDriverType>
+template <std::size_t CallbackSize>
+class Button : public WidgetBase<eul::events<CallbackSize, Press>>
 {
     using CallbackType = typename eul::event_loop<eul::events<CallbackSize, Press>>::template callback_type<Press>;
 
 public:
-    Button(const Position& position, GraphicDriverType& driver)
-        : WidgetBase<eul::events<CallbackSize, Press>, GraphicDriverType>(position, driver)
+    Button(const Position& position)
+        : WidgetBase<eul::events<CallbackSize, Press>>(position)
     {
     }
 
