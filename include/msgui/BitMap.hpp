@@ -4,6 +4,7 @@
 
 #include "msgui/policies/chunk/SSD1308ChunkPolicy.hpp"
 #include "msgui/details/SizeCalculator.hpp"
+
 namespace msgui
 {
 
@@ -15,6 +16,12 @@ public:
     template <typename... Data>
     constexpr BitMap(Data&&... data)
         : data_(make_bitmap<Width, Height>(data...))
+    {
+    }
+
+    template <std::size_t N>
+    constexpr BitMap(std::array<uint8_t, N>&& data)
+        : data_(data)
     {
     }
 

@@ -83,6 +83,16 @@ public:
         const_cast<AnimatedSprite<BitMapType>*>(this)->draw(driver);
     }
 
+    const BitMapType& bitmap() const
+    {
+        return *bitmap_;
+    }
+
+    int sprite_width() const
+    {
+        return frame_offset_;
+    }
+
 private:
     const BitMapType* bitmap_;
     int frame_number_;

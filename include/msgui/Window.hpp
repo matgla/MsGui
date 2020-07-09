@@ -31,7 +31,9 @@ public:
     using Title  = std::string_view;
 
     WindowConfig(GraphicDriverType& driver)
-        : driver_(driver)
+        : position_({0, 0})
+        , driver_(driver)
+
     {
     }
 

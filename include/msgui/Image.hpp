@@ -18,7 +18,11 @@ public:
         : WidgetBase<eul::events<1>>(position)
         , bitmap_(bitmap)
     {
+    }
 
+    Image<BitMapType> operator=(Image<BitMapType>&& other)
+    {
+        return Image(other.position_, other.bitmap_);
     }
 
     const BitMapType& bitmap() const

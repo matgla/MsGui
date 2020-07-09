@@ -4,7 +4,6 @@
 
 #include "msgui/Position.hpp"
 
-
 namespace msgui
 {
 
