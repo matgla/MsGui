@@ -24,7 +24,7 @@ public:
         : data_(data)
     {
     }
-
+    
     constexpr int width() const
     {
         return Width;
@@ -71,6 +71,11 @@ public:
     }
 
     DataType& data()
+    {
+        return data_;
+    }
+
+    const DataType& data() const 
     {
         return data_;
     }

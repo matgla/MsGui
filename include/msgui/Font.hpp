@@ -38,7 +38,7 @@ public:
     {
         return Height;
     }
-
+    
 private:
     const FontData data_;
 };
