@@ -38,5 +38,5 @@ target_link_options(msgui
         ${msgui_linking_flags}
 )
 
-target_link_libraries(msgui PUBLIC eul)
+target_link_libraries(msgui PUBLIC eul_utils)
 target_include_directories(msgui PUBLIC ${PROJECT_SOURCE_DIR}/include)
