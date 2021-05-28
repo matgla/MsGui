@@ -31,7 +31,6 @@ set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS ${PROJECT_SOURCE_
 
 set (image_generator ${PROJECT_SOURCE_DIR}/scripts/generate_image.py CACHE INTERNAL "")
 
-add_subdirectory(lib)
 add_subdirectory(src)
 if (BUILD_TESTS)
     include(CTest)
